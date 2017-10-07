@@ -1,0 +1,70 @@
+html,
+body {
+  margin:0;
+  padding:0;
+  height:100%;
+}
+
+#app {
+  min-height: 100%;
+  position: relative;
+}
+
+#main-container {
+  padding-bottom: 60px;
+}
+
+button, a {
+  &.margin-bottom {
+    margin-bottom: 10px;
+  }
+
+  &.margin-top {
+    margin-top: 10px;
+  }
+
+  &.margin-left {
+    margin-left: 5px;
+  }
+
+  &.margin-right {
+    margin-right: 5px;
+  }
+
+  &.margin {
+    margin: 10px 5px 10px 5px;
+  }
+}
+
+.margin-bottom {
+  margin-bottom: 10px;
+}
+
+.margin-top {
+  margin-top: 10px;
+}
+
+.margin-left {
+  margin-left: 10px;
+}
+
+.margin-right {
+  margin-right: 10px;
+}
+
+.margin {
+  margin: 10px 5px 10px 5px;
+}
+
+a {
+  &.plain {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.ql-toolbar {
+  &.ql-snow {
+    background-color: #f1f1f1;
+  }
+}

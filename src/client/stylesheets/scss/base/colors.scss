@@ -1,0 +1,118 @@
+// -----------------------------------------------------------------------------
+// Colours
+// -----------------------------------------------------------------------------
+
+
+// -----------------------------------------------------------------------------
+//  Default colors
+// -----------------------------------------------------------------------------
+$white: #fff !default;
+$alabaster-white: #f7f7f7 !default;
+$mineshaft-grey: #333 !default;
+$stardust-grey: #9d9d9c !default;
+$gallery-grey: #eaeaea !default;
+$black: #1f1f1f !default;
+$anthracite: #282F33;
+$steel: #80898D;
+
+$crimson-red: #df1e14 !default;
+$tango-orange: #f0801f !default;
+$amber-yellow: #fcbe0b !default;
+$earls-green: #b2cd3d !default;
+$sushi-green: #7ba22f !default;
+$fountain-blue: #55bfca !default;
+$boston-blue: #3a90a4 !default;
+
+$daintree-green: #023637 !default;
+$blue-dianne: #1D484B !default;
+$oracle-green: #3c8080 !default;
+$paradiso-blue: #378F82 !default;
+$deep-teal: #003536 !default;
+$ming-green: #358080 !default;
+$blue-smoke: #728F84 !default;
+$tasman-green: #CFD9D1 !default;
+$cotton-seed: #c5c0b9 !default;
+$boulder-grey: #777777 !default;
+$emperor-grey: #555555 !default;
+$cod-grey: #151515 !default;
+
+$elephant-green: #0c3a39 !default;
+$jungle-green: #2fa78e !default;
+$acapulco-blue: #80b2a6 !default;
+
+$yellow-sea: #ffb000 !default;
+$tundora-black: #424242 !default;
+
+$chhaya-grey: #4d4d4d !default;
+
+$alto-grey: #dedddd !default;
+$silver-grey: #b8b8b8 !default;
+
+$crusta-orange: #ff803b !default;
+$golden-grass: #dbac32 !default;
+$lightning-yellow: #fcbe0f !default;
+$tulip-tree-yellow: #E5A638 !default;
+$ebony-clay-purple: #292D44 !default;
+$venice-blue: #074C98 !default;
+$my-sin-yellow: #FFB024 !default;
+$aquamarine-green: #5EFFA5 !default;
+$minsk-blue: #32327F !default;
+$monza-red: #C20043 !default;
+$astronaut-blue: #26356F !default;
+$emerald-green: #46BF8B !default;
+$monsoon-grey: #8C7B86 !default;
+$edward-green: #A4B5AC !default;
+$brandy-rose: #BB8C82 !default;
+$carrot-orange: #F2961D !default;
+$thunder-black: #221E20 !default;
+$international-orange: #F95111 !default;
+$viking-blue: #56C2DF !default;
+$ecstasy-orange: #FA8015 !default;
+$shakespeare-blue: #4EC4CE !default;
+$sea-buckthorn-orange: #F9A833 !default;
+$jaffa-orange: #F0884D !default;
+$bright-sun-yellow: #FFDD33 !default;
+
+$alert-color: $jaffa-orange !default;
+$disabled-color: $alto-grey !default;
+$gunsmoke-grey: #808a89 !default;
+
+
+// -----------------------------------------------------------------------------
+// In Touch Networks
+// -----------------------------------------------------------------------------
+
+$brand-color: $tulip-tree-yellow !default;
+$primary-color: $chhaya-grey !default;
+$secondary-color: $ebony-clay-purple !default;
+$emphasis-color:  $venice-blue !default;
+
+$grey: $silver-grey;
+$grey-light: $alto-grey;
+$grey-dark: $chhaya-grey;
+
+//text color helpers
+.white {color: $white !important}
+//bg color helpers
+.bg-black {background-color:$tundora-black !important; color: $white;}
+.alert-color {color: $alert-color;}
+.approved-color {color: $sushi-green;}
+
+$gradient-media-hub: 180deg,
+rgba($white,0.0) 0%,
+rgba($white,0.7) 25%,
+rgba($white,1.0) 100%;
+
+
+$link-color: $brand-color !default;
+$hover-color: $primary-color !default;
+
+// -----------------------------------------------------------------------------
+// Form Buttons
+// -----------------------------------------------------------------------------
+
+$gainsboro-gray: #DDDDDD;
+$sky-blue: #5AB9EA;
+$sky-blue2: #53ABD8;
+$sapphire-blue: #0D5CCD;
+$warning-red: #C70000;
