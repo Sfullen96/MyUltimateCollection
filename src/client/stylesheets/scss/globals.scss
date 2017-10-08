@@ -1,0 +1,35 @@
+$footer-height: 60px;
+$margin: 10px;
+$marginLeft: 10px;
+$marginRight: 10px;
+
+@if button {
+  $marginLeft: 5px;
+  $marginRight: 5px;
+}
+
+.margin-top {
+  margin-top: $margin;
+}
+.margin-left {
+  margin-left: $marginLeft;
+}
+.margin-bottom {
+  margin-bottom: $margin;
+}
+.margin-right {
+  margin-right: $marginRight;
+}
+.margin-all {
+  margin: $margin;
+}
+
+button {
+  &[ type="submit" ] {
+    border-radius: 0;
+  }
+}
+
+.form-control {
+  border-radius: 0;
+}

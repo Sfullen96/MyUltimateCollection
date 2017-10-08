@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Navbar, Footer } from '../components/common';
+import { Header, Footer } from '../components/common';
 
 import { CommonPages } from './';
 
 export const routes = () =>
     <div className="app">
-        <Navbar isLoggedIn={ true } />
+        <Header isLoggedIn={ true } />
 
         <div className="container-fluid" id="main-container">
             <Switch>
