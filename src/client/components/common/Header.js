@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { searchActions } from '../../actions';
 
@@ -7,14 +7,15 @@ class Header extends Component {
 
     goToResults( event ) {
         event.preventDefault();
-        this.context.history.push( '/search' );
+        // this.context.history.push( '/search' );
+        return <Redirect to="/home" />
     }
 
     render() {
 
         const { searchTerm, match, location, history } = this.props;
 
-        console.log( "PROPS", match, location, history );
+        console.log( "PROPS", this.props );
 
         return(
             <header>
@@ -31,7 +32,7 @@ class Header extends Component {
                                     </button>
                                 </div>
                                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                    <form className="navbar-form navbar-left" method="POST" action="" onSubmit={ this.goToResults }>
+                                    <form className="navbar-form navbar-left" method="POST" action="" onSubmit={ this.props.handleSearchTermChange }>
                                         <div className="row">
                                             <div className="col-xs-12 col-sm-12">
                                                 <div className="form-group">
@@ -96,9 +97,9 @@ const mapStateToProps = ( state ) => ( {
 const mapDispatchToProps = ( dispatch ) => ( {
     handleSearchTermChange: () => dispatch( searchActions.handleSearchTermChange() )
 } );
-
-const ShowTheLocationWithRouter = withRouter( Header );
-withRouter( connect(...)( MyComponent ) )
+//
+// const ShowTheLocationWithRouter = withRouter( Header );
+// withRouter( connect(...)( MyComponent ) )
 
 
 export default connect( mapStateToProps, mapDispatchToProps )( Header );

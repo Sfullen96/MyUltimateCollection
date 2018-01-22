@@ -1,10 +1,11 @@
 import { requestHelpers } from '../helpers';
 
 export const HANDLE_SEARCH_TERM_CHANGE_REQUEST = 'HANDLE_SEARCH_TERM_CHANGE_REQUEST';
-export const HANDLE_SEARCH_TERM_CHANGE = 'HANDLE_SEARCH_TERM_CHANGE';
+export const HANDLE_SEARCH_TERM_CHANGE_SUCCESS = 'HANDLE_SEARCH_TERM_CHANGE_SUCCESS';
 export const HANDLE_SEARCH_TERM_CHANGE_ERROR = 'HANDLE_SEARCH_TERM_CHANGE_ERROR';
 
-function handleSearchTermChange() {
+export function handleSearchTermChange() {
+    console.log( "HERERER",  );
     return dispatch => {
         dispatch( {
             type: HANDLE_SEARCH_TERM_CHANGE_REQUEST,
@@ -16,7 +17,8 @@ function handleSearchTermChange() {
             .getRequest( false, '/common/networks' )
             .then( ( response ) => {
                 return dispatch( {
-                    type: HANDLE_SEARCH_TERM_CHANGE,
+                    type: HANDLE_SEARCH_TERM_CHANGE_SUCCESS,
+                    payload: response.data,
                     isFetching: false,
                     fetchError: false,
                     results: response
@@ -30,8 +32,4 @@ function handleSearchTermChange() {
                 } )
             } );
     }
-}
-
-export {
-    handleSearchTermChange,
 }
