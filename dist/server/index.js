@@ -15,7 +15,7 @@ var _server2 = _interopRequireDefault(_server);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var server = _http2.default.createServer(_server2.default);
-var listener = server.listen(parseInt(process.env.PORT) + 1 || 3050);
+var listener = server.listen(parseInt(process.env.PORT, 10) || 3050);
 server.on('error', onError);
 server.on('listening', onListening);
 
