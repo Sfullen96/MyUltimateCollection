@@ -1,0 +1,41 @@
+@import 'colours';
+@import 'globals';
+
+@media (min-width: 768px) {
+  .navbar-header {
+    height: 70px;
+  }
+  .navbar {
+    border-radius: 0;
+    height: 70px;
+    border: none !important;
+    margin-bottom: 0 !important;
+    .navbar-form {
+      margin-top: 17px;
+      button {
+        margin-left: 5px;
+      }
+    }
+    li {
+      a {
+        height: 70px;
+        line-height: 40px;
+        width: 150px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.navbar-inverse {
+  background-color: $color_mine_shaft_approx;
+  .navbar-nav > .active > a {
+    background-color: $color_alizarin_crimson_approx;
+    &:focus {
+      background-color: $color_alizarin_crimson_approx;
+    }
+    &:hover {
+      background-color: $color_alizarin_crimson_approx;
+    }
+  }
+}

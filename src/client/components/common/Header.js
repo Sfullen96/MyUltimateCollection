@@ -1,62 +1,105 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Link, withRouter, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { searchActions } from '../../actions';
 
-const Header = ( props ) => (
-    <header>
-        <nav className="navbar navbar-default">
-            <div className="container">
-                <div className="navbar-header"><button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span className="sr-only">Toggle navigation</span><span className="icon-bar"></span><span className="icon-bar"></span><span className="icon-bar"></span></button><a className="navbar-brand text-hide" href="/">Logo</a></div>
-                <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul className="nav navbar-nav navbar-right">
-                        <li className="dropdown">
-                            <a href="" className="dropdown-toggle" data-toggle="dropdown"><span className="glyphicon glyphicon-search" /></a>
-                            <ul className="dropdown-menu" role="menu">
-                                <li className="removeMargin">
-                                    <form className="navbar-form navbar-left">
-                                        <div className="form-group">
-                                            <div>
-                                                <div><input type="text" name="keyword" value="" className="form-control" placeholder="Keyword Search..." /></div>
+class Header extends Component {
+
+    goToResults( event ) {
+        event.preventDefault();
+        // this.context.history.push( '/search' );
+        return <Redirect to="/home" />
+    }
+
+    render() {
+
+        const { searchTerm, match, location, history } = this.props;
+
+        console.log( "PROPS", this.props );
+
+        return(
+            <header>
+                <div className="container-fluid">
+                    <div className="row">
+                        <nav className="navbar navbar-inverse">
+                            <div className="container-fluid">
+                                <div className="navbar-header">
+                                    <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                        <span className="sr-only">Toggle navigation</span>
+                                        <span className="icon-bar"/>
+                                        <span className="icon-bar"/>
+                                        <span className="icon-bar"/>
+                                    </button>
+                                </div>
+                                <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <form className="navbar-form navbar-left" method="POST" action="" onSubmit={ this.props.handleSearchTermChange }>
+                                        <div className="row">
+                                            <div className="col-xs-12 col-sm-12">
+                                                <div className="form-group">
+                                                    <input
+                                                        type="text"
+                                                        className="form-control margin-bottom"
+                                                        name="keyword"
+                                                        required
+                                                        placeholder="Search..."
+                                                        value={ searchTerm }
+                                                        onChange={ this.props.handleSearchTermChange }
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-xs-12 col-sm-3">
                                             </div>
                                         </div>
-                                        <button type="submit" className="btn btn-default btn-block submitBtn">Submit</button>
                                     </form>
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a>Logout</a></li>
-                    </ul>
-                    <ul className="nav navbar-nav navbar-right">
-                        <li className="dropdown">
-                            <a href="" className="dropdown-toggle" data-toggle="dropdown">Sales</a>
-                            <ul className="dropdown-menu" role="menu">
-                                <li><a href="/sales/8/segments/my-leads">Leads</a></li>
-                            </ul>
-                        </li>
-                        <li className="dropdown">
-                            <a href="" className="dropdown-toggle" data-toggle="dropdown">Jobs</a>
-                            <ul className="dropdown-menu" role="menu">
-                                <li><a href="/jobs/6/segments/recent-jobs">Jobs</a></li>
-                                <li><a href="/static-header">Reports</a></li>
-                            </ul>
-                        </li>
-                        <li className="dropdown">
-                            <a href="" className="dropdown-toggle" data-toggle="dropdown">Customer Care</a>
-                            <ul className="dropdown-menu" role="menu">
-                                <li><a href="/customer-care/1">Home</a></li>
-                                <li><a href="/customer-care/1/forums">Forums</a></li>
-                                <li><a href="/customer-care/1/reports">Reports</a></li>
-                            </ul>
-                        </li>
-                        <li className="dropdown">
-                            <a href="" className="dropdown-toggle" data-toggle="dropdown">Sponsorship</a>
-                            <ul className="dropdown-menu" role="menu">
-                                <li><a href="/sponsorship/9/segments/sponsorship-campaigns"> Campaigns </a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-);
+                                    <ul className="nav navbar-nav navbar-right">
+                                        <li className=""><Link to="/">Home</Link></li>
 
-export default Header;
+                                        <li className=""><Link to="/add-cd">Add to Library</Link></li>
+                                        <li className=""><Link to="/library">View Library</Link></li>
+                                        <li className=""><Link to="/login">Login</Link></li>
+                                        <li className="dropdown">
+                                            <Link
+                                                to=""
+                                                className="dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                role="button"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"> Account <span className="caret"/>
+                                            </Link>
+                                            <ul className="dropdown-menu">
+                                                <li><Link to="/manage-account">Manage Account</Link></li>
+                                                <li><Link to="/logout"> Logout </Link></li>
+                                            </ul>
+                                        </li>
+                                        <li className="dropdown">
+                                            <Link to="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Admin <span className="caret"/></Link>
+                                            <ul className="dropdown-menu">
+                                                <li><Link to="/admin/view-accounts"> View Accounts </Link></li>
+                                                <li><Link to="/admin/manage-library"> Manage Library </Link></li>
+                                                <li><Link to="/admin/manage-artists"> Manage Artists </Link></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        );
+    }
+}
+
+const mapStateToProps = ( state ) => ( {
+    searchTerm: state.searchTerm,
+} );
+
+const mapDispatchToProps = ( dispatch ) => ( {
+    handleSearchTermChange: () => dispatch( searchActions.handleSearchTermChange() )
+} );
+//
+// const ShowTheLocationWithRouter = withRouter( Header );
+// withRouter( connect(...)( MyComponent ) )
+
+
+export default connect( mapStateToProps, mapDispatchToProps )( Header );

@@ -1,25 +1,6 @@
 @charset "UTF-8";
 
-/* Abstract imports */
-@import 'abstracts/index';
-
-/* Base imports */
-@import 'base/index';
-
-/* Component imports  */
-@import 'components/index';
-
-/* Function imports */
-@import 'functions/functions';
-
-/* Layout imports */
-@import 'layouts/index';
-
-/* Resource imports */
-@import 'resources/index';
-
-/* Theme imports */
-@import 'themes/index';
-
-/* Vendors ( Normalize.scss ) */
-@import 'vendor/normalize';
+@import 'globals';
+@import 'footer';
+@import 'header';
+@import 'colours';
