@@ -19,4 +19,4 @@ yarn-error.log*
 
 .idea/
 
-#/src/config/remote
+/src/config/remote
