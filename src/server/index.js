@@ -3,7 +3,7 @@ import http from "http";
 import app from "./server";
 
 const server = http.createServer( app );
-const listener = server.listen(parseInt(process.env.PORT) + 1 || 3050);
+const listener = server.listen( parseInt( process.env.PORT, 10 ) || 3050);
 server.on('error', onError);
 server.on('listening', onListening);
 
