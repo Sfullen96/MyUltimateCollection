@@ -2,10 +2,12 @@
 
 footer {
   position: absolute;
+  color: #fff;
   bottom: 0;
   width: 100%;
   height: $footer-height;
   line-height: $footer-height;
+  background-color: #333;
   .container-fluid {
     height: inherit;
   }

@@ -12,22 +12,19 @@ export const account = ( state = {}, action ) => {
 };
 
 function setAccountMusicRequest( newState, action ) {
-    newState.account = {};
-    newState.account.musicFetch = action.isFetching;
+    newState.musicFetch = action.isFetching;
 
     return newState;
 }
 
 function setAccountMusic( newState, action ) {
-    console.log( "NEW STAE", newState );
-    newState.account.music = action.payload;
+    newState.music = action.payload;
 
-    console.log( "THISFSF", newState );
     return newState;
 }
 
 function setAccountError( newState, action ) {
-    newState.account.musicFetchError = action.error;
+    newState.musicFetchError = action.error;
 
     return newState;
 }
