@@ -1,5 +1,5 @@
 module.exports = {
     urls: {
-        api: "https://api.intouchnetworks.com",
+        api: "http://dev-api.myultimatecollection.com",
     },
 };
