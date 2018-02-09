@@ -13,7 +13,7 @@ export function getAccountMusic( accountId ) {
         } );
 
         requestHelpers
-            .getRequest( false, `/music/${ accountId }/all` )
+            .getRequest( false, `/music/${ accountId }/all`, { limit: 24 } )
             .then( ( result ) => {
                 dispatch( {
                     type: GET_ACCOUNT_MUSIC,
