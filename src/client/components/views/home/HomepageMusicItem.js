@@ -6,22 +6,39 @@ const HomeMusicItem = ( props ) => {
     const host = window.location.host;
 
     return (
-        <div className="homepage-music-item" style={ { backgroundImage: `url('${ props.music.image ? props.music.image : defaultImage }')` } } >
-            <div className="overlay">
+        <Link to={ `/music/${ props.music.id }` } >
+            <div className="homepage-music-item" style={ { backgroundImage: `url('${ props.music.image ? props.music.image : defaultImage }')` } } >
+                <div className="overlay">
+                </div>
+                <div className="text">
+                    <h3>
+                        <Link to={ `/music/${ props.music.id }` } >
+                            {
+                                props.music.title.includes( "(the)" ) || props.music.title.includes( "(The)" )
+                                ?
+                                    `The ${ props.music.title }`
+                                :
+                                    props.music.title
+                            }
+                            </Link>
+                    </h3>
+                    <h4>
+                        {
+                            props.music.artists.map( ( artist ) => {
+                                return <Link to={ `/artist/${ artist.id }` } >{
+                                    artist.name.includes( "(the)" ) || artist.name.includes( "(The)" )
+                                        ?
+                                        `The ${ artist.name.substring( 0, artist.name.length - 6 ) }`
+                                        :
+                                        artist.name
+                                }
+                                </Link>;
+                            } )
+                        }
+                    </h4>
+                </div>
             </div>
-            <div className="text">
-                <h3>
-                    <Link to={ `/music/${ props.music.id }` } >{ props.music.title }</Link>
-                </h3>
-                <h4>
-                    {
-                        props.music.artists.map( ( artist ) => {
-                            return <Link to={ `/artist/${ artist.id }` } > { artist.name } </Link>;
-                        } )
-                    }
-                </h4>
-            </div>
-        </div>
+        </Link>
     );
 };
 
