@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Header, Footer } from '../components/common';
 
-import { CommonPages } from './';
+import { Pages } from './';
 
 export const routes = () =>
     <div className="app">
@@ -10,8 +10,9 @@ export const routes = () =>
 
         <div className="container-fluid" id="main-container">
             <Switch>
-                <Route exact path="/" component={ CommonPages.Home } />
-                <Route component={ CommonPages.NotFound } />
+                <Route exact path="/" component={ Pages.Home } />
+                <Route exact path="/home" component={ Pages.Home } />
+                <Route exact path="/search-results" component={ Pages.SearchResults } />
             </Switch>
         </div>
 

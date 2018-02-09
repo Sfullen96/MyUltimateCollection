@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import defaultImage from "../../../../../public/images/placeholder.png"
 
 const HomeMusicItem = ( props ) => {
-    const host = window.location.host;
-
     return (
         <Link to={ `/music/${ props.music.id }` } >
             <div className="homepage-music-item" style={ { backgroundImage: `url('${ props.music.image ? props.music.image : defaultImage }')` } } >
@@ -24,8 +22,8 @@ const HomeMusicItem = ( props ) => {
                     </h3>
                     <h4>
                         {
-                            props.music.artists.map( ( artist ) => {
-                                return <Link to={ `/artist/${ artist.id }` } >{
+                            props.music.artists.map( ( artist, key ) => {
+                                return <Link to={ `/artist/${ artist.id }` } key={ key }>{
                                     artist.name.includes( "(the)" ) || artist.name.includes( "(The)" )
                                         ?
                                         `The ${ artist.name.substring( 0, artist.name.length - 6 ) }`

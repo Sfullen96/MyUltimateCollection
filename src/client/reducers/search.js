@@ -3,7 +3,7 @@ import { searchActions as actions } from '../actions';
 export const search = ( state = {}, action ) => {
     const newState = { ...state };
 
-    switch( actions.type ) {
+    switch( action.type ) {
         case actions.HANDLE_SEARCH_TERM_CHANGE_REQUEST: return handleSearch( newState, action );
         case actions.HANDLE_SEARCH_TERM_CHANGE_SUCCESS: return handleSearch( newState, action );
         case actions.HANDLE_SEARCH_TERM_CHANGE_ERROR: return handleSearch( newState, action );
@@ -12,6 +12,7 @@ export const search = ( state = {}, action ) => {
 };
 
 function handleSearch( newState, action ) {
+    console.log( "HERE FAM!!!",  );
     newState.searchFetch = action.isFetching;
     newState.searchError = action.fetchError;
 

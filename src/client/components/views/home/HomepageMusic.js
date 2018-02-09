@@ -22,7 +22,7 @@ class HomepageMusic extends Component {
                 { music
                     .map( ( item, key ) => {
                         return (
-                            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-2 homepage-item-container" >
+                            <div className="col-xs-12 col-sm-4 col-md-4 col-lg-2 homepage-item-container" key={ key } >
                                 <HomepageMusicItem music={ item } key={ key } />
                             </div>
                         )
