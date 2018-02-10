@@ -10,7 +10,7 @@ class Header extends Component {
         const { history, music } = this.props;
 
         history.push( {
-            pathname: '/search-results',
+            pathname: '/',
             search: `?keyword=${ keyword }`,
             state: { music: music },
         } );

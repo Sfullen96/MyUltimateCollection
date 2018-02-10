@@ -1,10 +1,10 @@
 import React from 'react';
-import { HomepageMusic } from "../views/home";
+import { MusicPage } from "../views/music";
 
 const Home = ( props ) => {
     return (
         <div>
-            <HomepageMusic { ...props } />
+            <MusicPage { ...props } />
         </div>
     );
 };
