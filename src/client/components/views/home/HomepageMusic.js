@@ -2,12 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { accountActions } from "../../../actions";
 import { HomepageMusicItem } from "./";
+import queryString from "query-string";
 
 class HomepageMusic extends Component {
     componentDidMount() {
         const { getAccountMusic } = this.props;
 
-        getAccountMusic( 1 );
+        let keyword = null;
+
+        console.log( "decodeURIComponent( this.props.location.search.substr( 1 ) )", queryString.parse(this.props.location.search) );
+        const parsed = this.props.location.search ? queryString.parse( this.props.location.search ) : null;
+        keyword = parsed && parsed.keyword ? parsed.keyword : null;
+        console.log( "THIS>.PROPS", keyword );
+        getAccountMusic( 1, keyword );
     }
 
     render() {
@@ -40,7 +47,7 @@ const mapStateToProps = state => ( {
 } );
 
 const mapDispatchToProps = ( dispatch ) => ( {
-    getAccountMusic: ( accountId ) => dispatch( accountActions.getAccountMusic( accountId ) ),
+    getAccountMusic: ( accountId, keyword ) => dispatch( accountActions.getAccountMusic( accountId, keyword ) ),
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( HomepageMusic );

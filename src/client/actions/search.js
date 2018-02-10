@@ -18,7 +18,7 @@ export function handleSearchTermChange( accountId, keyword ) {
             .then( ( response ) => {
                 return dispatch( {
                     type: HANDLE_SEARCH_TERM_CHANGE_SUCCESS,
-                    payload: response.data,
+                    payload: { data: response.data, keyword },
                     isFetching: false,
                     fetchError: false,
                     results: response

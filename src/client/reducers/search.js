@@ -12,7 +12,6 @@ export const search = ( state = {}, action ) => {
 };
 
 function handleSearch( newState, action ) {
-    console.log( "HERE FAM!!!",  );
     newState.searchFetch = action.isFetching;
     newState.searchError = action.fetchError;
 
@@ -20,7 +19,8 @@ function handleSearch( newState, action ) {
         delete newState.searchFetch;
         delete newState.searchError;
 
-        newState.searchResults = action.payload;
+        newState.searchResults = action.payload.data;
+        newState.searchTerm = action.payload.keyword;
     }
 
     return newState;

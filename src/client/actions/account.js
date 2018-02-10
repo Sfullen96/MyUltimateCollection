@@ -4,7 +4,7 @@ export const GET_ACCOUNT_MUSIC_REQUEST = 'GET_ACCOUNT_MUSIC_REQUEST';
 export const GET_ACCOUNT_MUSIC = 'GET_ACCOUNT_MUSIC';
 export const GET_ACCOUNT_MUSIC_ERROR = 'GET_ACCOUNT_MUSIC_ERROR';
 
-export function getAccountMusic( accountId ) {
+export function getAccountMusic( accountId, keyword = null ) {
     return dispatch => {
         dispatch( {
             type: GET_ACCOUNT_MUSIC_REQUEST,
@@ -13,7 +13,7 @@ export function getAccountMusic( accountId ) {
         } );
 
         requestHelpers
-            .getRequest( false, `/music/${ accountId }/all`, { limit: 24 } )
+            .getRequest( false, `/music/${ accountId }/all`, { limit: 24, keyword } )
             .then( ( result ) => {
                 dispatch( {
                     type: GET_ACCOUNT_MUSIC,
