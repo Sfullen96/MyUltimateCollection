@@ -19,6 +19,7 @@ class IndividualMusic extends Component {
     }
 }
 
+
 const mapStateToProps = state => ( {
 
 } );
