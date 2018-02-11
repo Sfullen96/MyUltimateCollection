@@ -4,7 +4,7 @@ import defaultImage from "../../../../../../public/images/placeholder.png"
 
 const MusicTile = ( props ) => {
     return(
-        <div className="homepage-music-item" onClick={ () => { props.history.push( `/music/${ props.music.id }` ) } } style={ { backgroundImage: `url('${ props.music.image ? props.music.image : defaultImage }')` } } >
+        <div className="music-tile" onClick={ () => { props.history.push( `/music/${ props.music.id }` ) } } style={ { backgroundImage: `url('${ props.music.image ? props.music.image : defaultImage }')` } } >
             <div className="overlay">
             </div>
             <div className="text">

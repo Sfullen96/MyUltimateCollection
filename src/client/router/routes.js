@@ -12,6 +12,7 @@ export const routes = () =>
             <Switch>
                 <Route exact path="/" component={ Pages.Home } />
                 <Route exact path="/home" component={ Pages.Home } />
+                <Route exact path="/music/:musicId" component={ Pages.IndividualMusic } />
             </Switch>
         </div>
 

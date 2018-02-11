@@ -6,7 +6,6 @@ import queryString from "query-string";
 
 class MusicPage extends Component {
     componentDidMount() {
-        console.log( "i AM HERER",  );
         const { getAccountMusic } = this.props;
 
         let keyword = null;
@@ -17,9 +16,6 @@ class MusicPage extends Component {
     }
 
     componentWillReceiveProps( nextProps ) {
-        console.log( "fsdfdsfdsfdz", nextProps.location.search, this.props.location.search );
-        console.log( "NEXT PROPS", nextProps );
-
         if ( nextProps.location.search !== this.props.location.search ) {
             const { getAccountMusic } = this.props;
 
@@ -30,8 +26,6 @@ class MusicPage extends Component {
             getAccountMusic( 1, keyword );
         }
     }
-
-
 
     render() {
         const { music } = this.props;
