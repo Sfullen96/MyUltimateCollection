@@ -6,5 +6,6 @@ export const rootReducer = combineReducers( {
     authentication: reducers.authentication,
     search: reducers.search,
     account: reducers.account,
+    music: reducers.music,
     form: reduxFormReducer,
 } );
