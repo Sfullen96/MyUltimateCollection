@@ -70,5 +70,41 @@ div .individual-music-container {
     margin-right: 15px;
     width: 100%;
     float: left;
+    border: 1px solid #333;
+  }
+  .music-track-table-row {
+    margin-top: 15px;
+  }
+  .music-meta {
+    bottom: 0;
+    .music-title {
+      font-weight: 800;
+      font-size: 40px;
+      margin-bottom: 0;
+    }
+    .music-format {
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 0;
+    }
+    .music-duration {
+      font-size: 18px;
+    }
+    .music-artists {
+      font-weight: 400;
+      font-size: 24px;
+    }
+  }
+
+  .description-row {
+    margin-top: 15px;
+    p {
+      -webkit-transition: all 2s; /* Safari */
+      transition: all 2s;
+      font-size: 16px;
+    }
+    .toggle-description-link {
+      cursor: hand !important;
+    }
   }
 }
