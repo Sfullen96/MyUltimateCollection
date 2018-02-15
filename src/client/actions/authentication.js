@@ -1,40 +1,46 @@
 import { requestHelpers } from '../helpers';
 
-export const USER_LOGIN_ATTEMPT_REQUEST = 'USER_LOGIN_ATTEMPT_REQUEST';
-export const USER_LOGIN_ATTEMPT_SUCCESS = 'USER_LOGIN_ATTEMPT_SUCCESS';
-export const USER_LOGIN_ATTEMPT_FAILURE = 'USER_LOGIN_ATTEMPT_FAILURE';
+export const LOGIN_ATTEMPT_REQUEST = "LOGIN_ATTEMPT_REQUEST";
+export const LOGIN_ATTEMPT = "LOGIN_ATTEMPT";
+export const LOGIN_ATTEMPT_ERROR = "LOGIN_ATTEMPT_ERROR";
 
-export function userLoginAttempt( emailAddress, password ) {
-    return dispatch => {
-        console.log( "LOGIN REQUEST", emailAddress, password  );
-        dispatch({
-            type: USER_LOGIN_ATTEMPT_REQUEST,
-            isFetching: true,
-            hasErrored: false,
-        })
-
-        requestHelpers
-            .postRequest( '/authentication/token', { email_address: emailAddress, password } )
-            .then( response => {
-                const localStorage = {};
-                localStorage.token = response.data.token;
-                localStorage.permissions = response.data.permissions;
-                localStorage.email_address = response.data.email_address;
-
-                dispatch({
-                    type: USER_LOGIN_ATTEMPT_SUCCESS,
-                    payload: response.data,
-                    isFetching: false,
-                    hasErrored: false,
-                })
-            } )
-            .catch( error => {
-                console.log( "Caught Error - User Login Attempt: ", error );
-                dispatch({
-                    type: USER_LOGIN_ATTEMPT_FAILURE,
-                    isFetching: false,
-                    hasErrored: error,
-                })
+export function loginAccountAttempt( usernameOrEmail, password ) {
+    return ( ( dispatch ) => {
+        return new Promise( ( resolve, reject ) => {
+            dispatch( {
+                type: LOGIN_ATTEMPT_REQUEST,
+                isFetching: true,
+                error: false,
             } );
-    };
+
+            let localStorage = {};
+
+            requestHelpers
+                .postRequest( false, `/authentication/token`, { email_address: usernameOrEmail, password } )
+                .then( ( response ) => {
+                    localStorage = {
+                        token: response.data.token,
+                        account_id: response.data.id,
+                    };
+
+                    return dispatch( {
+                        type: LOGIN_ATTEMPT,
+                        isFetching: false,
+                        error: false,
+                        payload: response.data,
+                    } );
+                } )
+                .catch( ( error ) => {
+                    dispatch( {
+                        type: LOGIN_ATTEMPT_ERROR,
+                        error: error,
+                        isFetching: false,
+                    } );
+                    return reject( error );
+                } )
+                .then( () => {
+                    return resolve( localStorage );
+                } );
+        } );
+    } );
 }

@@ -41,11 +41,16 @@ class Header extends Component {
                                     <HeaderSearch onSubmit={ this.handleSearch } />
 
                                     <ul className="nav navbar-nav navbar-right">
-                                        <li className=""><Link to="/">Home</Link></li>
+                                        <li className=""><Link to="/music">Home</Link></li>
 
                                         <li className=""><Link to="/add-cd">Add to Library</Link></li>
                                         <li className=""><Link to="/library">View Library</Link></li>
-                                        <li className=""><Link to="/login">Login</Link></li>
+                                        {
+                                            localStorage.getItem( 'unauthorized' ) === 1 ?
+                                                <li className=""><Link to="/login">Login</Link></li>
+                                            :
+                                                <li className=""><Link to="/logout">Logout</Link></li>
+                                        }
                                         <li className="dropdown">
                                             <Link
                                                 to=""
