@@ -3,9 +3,17 @@ import { Link } from 'react-router-dom';
 import { HeaderSearch } from "./elements"
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom"
-import { searchActions } from '../../actions';
+import { searchActions, authActions } from '../../actions';
 
 class Header extends Component {
+    constructor() {
+        super();
+
+        this.state = {
+            loggedIn: localStorage.getItem( "token" ),
+        }
+    }
+
     goToSearchResults( keyword ) {
         const { history, music } = this.props;
 
@@ -22,7 +30,25 @@ class Header extends Component {
         this.goToSearchResults( values.keyword );
     };
 
+    logoutAccount = () => {
+        const { logoutAccount, history } = this.props;
+
+        logoutAccount()
+            .then( ( result ) => {
+                if ( result.payload.success ) {
+                    localStorage.clear();
+                    localStorage.setItem( "unauthorized", 1 );
+
+                    history.push( "/login" );
+
+                    this.setState( { loggedIn: false } );
+                }
+            } );
+    };
+
     render() {
+        const { loggedIn } = this.state;
+
         return (
             <header>
                 <div className="container-fluid">
@@ -41,38 +67,30 @@ class Header extends Component {
                                     <HeaderSearch onSubmit={ this.handleSearch } />
 
                                     <ul className="nav navbar-nav navbar-right">
-                                        <li className=""><Link to="/music">Home</Link></li>
+                                        <li className=""><Link to="/home">Home</Link></li>
 
-                                        <li className=""><Link to="/add-cd">Add to Library</Link></li>
-                                        <li className=""><Link to="/library">View Library</Link></li>
+                                        <li className=""><Link to="/add-music">Add Music</Link></li>
+                                        <li className=""><Link to="/music">View Library</Link></li>
                                         {
-                                            localStorage.getItem( 'unauthorized' ) === 1 ?
+                                            !loggedIn ?
                                                 <li className=""><Link to="/login">Login</Link></li>
                                             :
-                                                <li className=""><Link to="/logout">Logout</Link></li>
+                                                <li className=""><Link to="#" onClick={ this.logoutAccount } >Logout</Link></li>
                                         }
-                                        <li className="dropdown">
-                                            <Link
-                                                to=""
-                                                className="dropdown-toggle"
-                                                data-toggle="dropdown"
-                                                role="button"
-                                                aria-haspopup="true"
-                                                aria-expanded="false"> Account <span className="caret"/>
-                                            </Link>
-                                            <ul className="dropdown-menu">
-                                                <li><Link to="/manage-account">Manage Account</Link></li>
-                                                <li><Link to="/logout"> Logout </Link></li>
-                                            </ul>
-                                        </li>
-                                        <li className="dropdown">
-                                            <Link to="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Admin <span className="caret"/></Link>
-                                            <ul className="dropdown-menu">
-                                                <li><Link to="/admin/view-accounts"> View Accounts </Link></li>
-                                                <li><Link to="/admin/manage-library"> Manage Library </Link></li>
-                                                <li><Link to="/admin/manage-artists"> Manage Artists </Link></li>
-                                            </ul>
-                                        </li>
+                                        {/*<li className="dropdown">*/}
+                                            {/*<Link*/}
+                                                {/*to=""*/}
+                                                {/*className="dropdown-toggle"*/}
+                                                {/*data-toggle="dropdown"*/}
+                                                {/*role="button"*/}
+                                                {/*aria-haspopup="true"*/}
+                                                {/*aria-expanded="false"> Account <span className="caret"/>*/}
+                                            {/*</Link>*/}
+                                            {/*<ul className="dropdown-menu">*/}
+                                                {/*<li><Link to="/manage-account">Manage Account</Link></li>*/}
+                                                {/*<li><Link to="/logout"> Logout </Link></li>*/}
+                                            {/*</ul>*/}
+                                        {/*</li>*/}
                                     </ul>
                                 </div>
                             </div>
@@ -91,7 +109,8 @@ const mapStateToProps = ( state ) => ( {
 } );
 
 const mapDispatchToProps = ( dispatch ) => ( {
-    handleSearchTermChange: ( accountId, keyword ) => dispatch( searchActions.handleSearchTermChange( accountId, keyword ) )
+    handleSearchTermChange: ( accountId, keyword ) => dispatch( searchActions.handleSearchTermChange( accountId, keyword ) ),
+    logoutAccount: () => dispatch( authActions.logoutAccount() ),
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( withRouter( Header ) );

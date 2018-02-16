@@ -44,3 +44,42 @@ export function loginAccountAttempt( usernameOrEmail, password ) {
         } );
     } );
 }
+
+export const LOGOUT_ACCOUNT_REQUEST = "LOGOUT_ACCOUNT_REQUEST";
+export const LOGOUT_ACCOUNT = "LOGOUT_ACCOUNT";
+export const LOGOUT_ACCOUNT_ERROR = "LOGOUT_ACCOUNT_ERROR";
+
+export function logoutAccount() {
+    return ( ( dispatch ) => {
+        return new Promise( ( resolve, reject ) => {
+            dispatch( {
+                type: LOGOUT_ACCOUNT_REQUEST,
+                isRequesting: true,
+                error: false,
+            } );
+
+            return requestHelpers
+                .postRequest( true, `/authentication/logout` )
+                .then( ( response ) => {
+                    return dispatch( {
+                        type: LOGOUT_ACCOUNT,
+                        payload: response,
+                        isRequesting: false,
+                        error: false,
+                    } );
+                } )
+                .catch( ( error ) => {
+                    dispatch( {
+                        type: LOGOUT_ACCOUNT_ERROR,
+                        error: error,
+                        isRequesting: false,
+                    } );
+
+                    return reject( error );
+                } )
+                .then( ( response ) => {
+                    return resolve( response );
+                } );
+        } );
+    } );
+}
