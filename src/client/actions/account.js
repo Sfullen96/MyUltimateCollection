@@ -17,7 +17,7 @@ export function getAccountMusic( accountId, keyword = null ) {
             .then( ( result ) => {
                 dispatch( {
                     type: GET_ACCOUNT_MUSIC,
-                    payload: result.data,
+                    payload: result,
                     isFetching: false,
                     error: false,
                 } )

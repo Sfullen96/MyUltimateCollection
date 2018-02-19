@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import queryString from "query-string";
 import { accountActions } from "../../../actions";
 import { MusicTiles, MusicList } from "../music";
-import queryString from "query-string";
+import { Pagination } from "../../common/elements";
 
 class MusicPage extends Component {
     constructor( props ) {
@@ -47,30 +48,32 @@ class MusicPage extends Component {
     };
 
     render() {
-        const { music } = this.props;
+        const { music, musicMeta } = this.props;
         const { showList, showTiles } = this.state;
 
         if ( !music ) {
             return <h1> Loading... </h1>;
         }
+        console.log( "THIS>PROPS", this.props );
 
         return (
             <div className="music-page">
-                <div className="row filter-bar">
-                    <div className="pull-right">
-                        <span className="show-list" onClick={ this.toggleMusicView } disabled={ showList } >
-                            <i class="fa fa-list"></i>
-                            <h6> Show List </h6>
-                        </span>
-                        <span className="show-tiles" onClick={ this.toggleMusicView } disabled={ showTiles } >
-                            <i class="fa fa-square"></i>
-                            <h6> Show Tiles </h6>
-                        </span>
-                    </div>
-                </div>
+                {/*<div className="row filter-bar">*/}
+                    {/*<div className="pull-right">*/}
+                        {/*<span className="show-list" onClick={ showTiles && this.toggleMusicView } disabled={ showList } >*/}
+                            {/*<i className="fa fa-list" disabled={ showList } ><h6> Show List </h6></i>*/}
+                        {/*</span>*/}
+                        {/*<span className="show-tiles" onClick={ showList && this.toggleMusicView } disabled={ showTiles } >*/}
+                            {/*<i className="fa fa-square" disabled={ showList } ><h6> Show Tiles </h6></i>*/}
+                        {/*</span>*/}
+                    {/*</div>*/}
+                {/*</div>*/}
                 <div className="row">
                     { showTiles ?
-                        <MusicTiles music={ music }/>
+                        <div>
+                            <MusicTiles music={ music }/>
+                            <Pagination { ...this.props } displayPages={ 5 } currentPage={ musicMeta.current_page } totalPages={ musicMeta.total_pages } totalRows={ musicMeta.total_rows } />
+                        </div>
                         :
                         <MusicList music={ music }/>
                     }
@@ -85,6 +88,7 @@ const mapStateToProps = ( state ) => {
         musicFetch: state.account.musicFetch,
         musicFetchError: state.account.musicFetchError,
         music: state.account.music,
+        musicMeta: state.account.musicMeta,
         showList: state.showList,
     }
 };

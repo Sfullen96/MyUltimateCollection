@@ -18,7 +18,8 @@ function setAccountMusicRequest( newState, action ) {
 }
 
 function setAccountMusic( newState, action ) {
-    newState.music = action.payload;
+    newState.music = action.payload.data;
+    newState.musicMeta = action.payload.meta;
 
     return newState;
 }

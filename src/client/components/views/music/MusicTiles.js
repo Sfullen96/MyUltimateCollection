@@ -2,8 +2,12 @@ import React from "react";
 import { MusicTile } from "./elements";
 
 const MusicTiles = ( props ) => {
+    
+    console.log( "PROPS", props );
+
     return (
-        props
+        <div>
+            { props
             .music
             .map( ( item, key ) => {
                 return (
@@ -11,7 +15,10 @@ const MusicTiles = ( props ) => {
                         <MusicTile music={ item } key={ key } />
                     </div>
                 )
-            } )
+            } ) }
+
+            {/*<Pagination currentPage={  } totalPages={} totalRows={} />*/}
+        </div>
     )
 };
 
