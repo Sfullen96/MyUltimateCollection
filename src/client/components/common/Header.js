@@ -10,6 +10,7 @@ class Header extends Component {
         super();
 
         this.state = {
+            showSearchPreview: false,
             loggedIn: localStorage.getItem( "token" ),
         }
     }
@@ -30,6 +31,20 @@ class Header extends Component {
         this.goToSearchResults( values.keyword );
     };
 
+    handleChange = ( values ) => {
+        if ( values.currentTarget.value ) {
+            this.setState( {
+                showSearchPreview: true,
+            } );
+            this.props.handleSearchTermChange( 1, values.currentTarget.value );
+        } else {
+            this.setState( {
+                showSearchPreview: false,
+            } );
+        }
+    };
+
+
     logoutAccount = () => {
         const { logoutAccount, history } = this.props;
 
@@ -46,9 +61,18 @@ class Header extends Component {
             } );
     };
 
-    render() {
-        const { loggedIn } = this.state;
+    onBlur = () => {
+        this.setState( {
+            showSearchPreview: false,
+        } );
+    };
 
+    render() {
+        const { loggedIn, showSearchPreview } = this.state;
+        const { music } = this.props;
+
+        console.log( "PROPS", this.props );
+        
         return (
             <header>
                 <div className="container-fluid">
@@ -64,7 +88,13 @@ class Header extends Component {
                                     </button>
                                 </div>
                                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                    <HeaderSearch onSubmit={ this.handleSearch } />
+                                    <HeaderSearch
+                                        onSubmit={ this.handleSearch }
+                                        handleChange={ this.handleChange }
+                                        music={ music }
+                                        showSearchPreview={ showSearchPreview }
+                                        onBlur={ this.onBlur }
+                                    />
 
                                     <ul className="nav navbar-nav navbar-right">
                                         <li className=""><Link to="/home">Home</Link></li>

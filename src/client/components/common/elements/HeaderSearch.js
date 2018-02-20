@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from "redux-form";
 
-const HeaderSearch = ( { handleSubmit, value } ) => {
+const HeaderSearch = ( { handleSubmit, value, handleChange, music, showSearchPreview, onBlur } ) => {
     return (
         <form className="navbar-form navbar-left" method="POST" action="" onSubmit={ handleSubmit }>
             <div className="row">
@@ -10,16 +10,38 @@ const HeaderSearch = ( { handleSubmit, value } ) => {
                         <Field
                             component="input"
                             type="text"
-                            className="form-control margin-bottom"
+                            className="form-control search-input"
                             name="keyword"
                             required
                             placeholder="Search..."
                             value={ value }
-                            // onChange={ ( data ) => this.handleSearch( data ) }
+                            onChange={ handleChange }
+                            autoComplete="off"
+                            onBlur={ onBlur }
                         />
+                        {
+                            music && music.length && showSearchPreview &&
+                            <div className="search-dropdown">
+                                <ul className="search-list">
+                                    {
+                                        music
+                                            .map( ( _music ) => {
+                                                return (
+                                                    <div className="search-item">
+                                                        <li>{ _music.title }</li>
+                                                        <i>{ _music.artists[ 0 ].name }</i>
+                                                        {
+                                                            music.length > 1 &&
+                                                            <hr/>
+                                                        }
+                                                    </div>
+                                                );
+                                            } )
+                                    }
+                                </ul>
+                            </div>
+                        }
                     </div>
-                </div>
-                <div className="col-xs-12 col-sm-3">
                 </div>
             </div>
         </form>
