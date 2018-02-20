@@ -26,6 +26,7 @@
     }
   }
   .music-item-container {
+    cursor: pointer;
     float: left;
     margin: 0 auto;
     padding: 0px;
@@ -126,7 +127,7 @@ div .individual-music-container {
       font-size: 16px;
     }
     .toggle-description-link {
-      cursor: hand !important;
+      cursor: pointer;
     }
   }
 }

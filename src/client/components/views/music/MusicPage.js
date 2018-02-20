@@ -18,27 +18,27 @@ class MusicPage extends Component {
     componentDidMount() {
         const { getAccountMusic } = this.props;
 
-        let keyword = null;
         const parsed = this.props.location.search ? queryString.parse( this.props.location.search ) : null;
-        keyword = parsed && parsed.keyword ? parsed.keyword : null;
+        const keyword = parsed && parsed.keyword ? parsed.keyword : null;
+        const page = parsed && parsed.page ? parseInt( parsed.page, 10 ) : 1;
 
-        getAccountMusic( 1, keyword );
+        getAccountMusic( 1, keyword, page );
     }
 
     componentWillReceiveProps( nextProps ) {
         if ( nextProps.location.search !== this.props.location.search ) {
             const { getAccountMusic } = this.props;
 
-            let keyword = null;
             const parsed = queryString.parse( nextProps.location.search );
-            keyword = parsed && parsed.keyword ? parsed.keyword : null;
+            const keyword = parsed && parsed.keyword ? parsed.keyword : null;
+            const page = parsed && parsed.page ? parseInt( parsed.page, 10 ) : 1;
 
-            getAccountMusic( 1, keyword );
+            getAccountMusic( 1, keyword, page );
         }
     }
 
     toggleMusicView = () => {
-        const { showList, showTiles } = this.state;
+        const { showList } = this.state;
 
         if ( showList ) {
             this.setState( { showList: false, showTiles: true } );
@@ -49,7 +49,7 @@ class MusicPage extends Component {
 
     render() {
         const { music, musicMeta } = this.props;
-        const { showList, showTiles } = this.state;
+        const { showTiles } = this.state;
 
         if ( !music ) {
             return <h1> Loading... </h1>;
@@ -72,7 +72,8 @@ class MusicPage extends Component {
                     { showTiles ?
                         <div>
                             <MusicTiles music={ music }/>
-                            <Pagination { ...this.props } displayPages={ 5 } currentPage={ musicMeta.current_page } totalPages={ musicMeta.total_pages } totalRows={ musicMeta.total_rows } />
+                            <div className="clearfix"></div>
+                            <Pagination { ...this.props } resultsPerPage={ musicMeta.results_per_page } displayPages={ 5 } currentPage={ musicMeta.current_page } totalPages={ musicMeta.total_pages } totalRows={ musicMeta.total_rows } />
                         </div>
                         :
                         <MusicList music={ music }/>
@@ -94,7 +95,7 @@ const mapStateToProps = ( state ) => {
 };
 
 const mapDispatchToProps = ( dispatch ) => ( {
-    getAccountMusic: ( accountId, keyword ) => dispatch( accountActions.getAccountMusic( accountId, keyword ) ),
+    getAccountMusic: ( accountId, keyword, page ) => dispatch( accountActions.getAccountMusic( accountId, keyword, page ) ),
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( MusicPage );

@@ -5,7 +5,6 @@ export const HANDLE_SEARCH_TERM_CHANGE_SUCCESS = 'HANDLE_SEARCH_TERM_CHANGE_SUCC
 export const HANDLE_SEARCH_TERM_CHANGE_ERROR = 'HANDLE_SEARCH_TERM_CHANGE_ERROR';
 
 export function handleSearchTermChange( accountId, keyword ) {
-    console.log( "HERERER", accountId, keyword );
     return dispatch => {
         dispatch( {
             type: HANDLE_SEARCH_TERM_CHANGE_REQUEST,
@@ -14,7 +13,7 @@ export function handleSearchTermChange( accountId, keyword ) {
         } );
 
         requestHelpers
-            .getRequest( false, `/music/${ accountId }/all`, { keyword, limit: 2000 } )
+            .getRequest( false, `/music/${ accountId }/all`, { keyword, limit: 24 } )
             .then( ( response ) => {
                 return dispatch( {
                     type: HANDLE_SEARCH_TERM_CHANGE_SUCCESS,
