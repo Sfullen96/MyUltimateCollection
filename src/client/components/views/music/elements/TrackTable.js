@@ -16,10 +16,10 @@ const TrackTable = ( props ) => {
             {
                 props
                     .tracks
-                    .map( ( track ) => {
+                    .map( ( track, key ) => {
                         const formattedDuration = moment.utc( track.duration * 1000 ).format( "m:ss" );
                         return (
-                            <tr>
+                            <tr key={ key }>
                                 <td>{ track.order }</td>
                                 <td><Link to={ track.last_fm_url } target="_blank" >{ track.name }</Link></td>
                                 <td>{ formattedDuration }</td>

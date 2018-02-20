@@ -72,7 +72,7 @@ class MusicPage extends Component {
                         <div>
                             <MusicTiles music={ music }/>
                             <div className="clearfix"></div>
-                            <Pagination { ...this.props } resultsPerPage={ musicMeta.results_per_page } displayPages={ 5 } currentPage={ musicMeta.current_page } totalPages={ musicMeta.total_pages } totalRows={ musicMeta.total_rows } />
+                             <Pagination { ...this.props } resultsPerPage={ musicMeta.results_per_page } displayPages={ 5 } currentPage={ musicMeta.current_page } totalPages={ musicMeta.total_pages } totalRows={ musicMeta.total_rows } />
                         </div>
                         :
                         <MusicList music={ music }/>

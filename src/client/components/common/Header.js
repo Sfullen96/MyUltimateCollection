@@ -12,11 +12,22 @@ class Header extends Component {
         this.state = {
             showSearchPreview: false,
             loggedIn: localStorage.getItem( "token" ),
+            hovering: false,
         }
     }
 
+    onSearchResultClick = ( musicId ) => {
+        console.log( "CLICKEDEDED",  );
+        this.props.history.push( `/music/${ musicId }` );
+    };
+
     goToSearchResults( keyword ) {
         const { history, music } = this.props;
+
+        this.setState( {
+            hovering: false,
+            showSearchPreview: false,
+        } );
 
         history.push( {
             pathname: '/',
@@ -61,18 +72,34 @@ class Header extends Component {
             } );
     };
 
-    onBlur = () => {
+    onHover = () => {
+        console.log( "HOVERING" );
         this.setState( {
-            showSearchPreview: false,
+            showSearchPreview: true,
+            hovering: true,
         } );
+    };
+
+    onMouseOut = () => {
+        console.log( "MOuSE OuT" );
+        this.setState( {
+            hovering: false,
+        } );
+    };
+
+    onBlur = () => {
+        console.log( "BLURRRR",  );
+        if ( !this.state.hovering ) {
+            this.setState( {
+                showSearchPreview: false,
+            } );
+        }
     };
 
     render() {
         const { loggedIn, showSearchPreview } = this.state;
         const { music } = this.props;
 
-        console.log( "PROPS", this.props );
-        
         return (
             <header>
                 <div className="container-fluid">
@@ -94,6 +121,9 @@ class Header extends Component {
                                         music={ music }
                                         showSearchPreview={ showSearchPreview }
                                         onBlur={ this.onBlur }
+                                        onHover={ this.onHover }
+                                        onMouseOut={ this.onMouseOut }
+                                        onSearchResultClick={ this.onSearchResultClick }
                                     />
 
                                     <ul className="nav navbar-nav navbar-right">

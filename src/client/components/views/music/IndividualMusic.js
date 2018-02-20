@@ -25,8 +25,6 @@ class IndividualMusic extends Component {
     }
 
     toggleDescription = () => {
-        console.log( "HERERERER", this.state );
-
         this.setState( {
             descriptionExtended: !this.state.descriptionExtended,
             buttonText: !this.state.descriptionExtended ? "Show Less" : "Show More",
@@ -41,8 +39,6 @@ class IndividualMusic extends Component {
         if ( !music ) {
             return <h1> Loading... </h1>
         }
-
-        console.log( "THIS.STATE", this.state );
 
         let totalDuration = 0;
 
@@ -66,8 +62,8 @@ class IndividualMusic extends Component {
                         <p className="music-artists">By {
                             music
                                 .artists
-                                .map( ( artist ) => {
-                                    return <Link to={ `/artist/${ artist.id }` } >{ artist.name }</Link>;
+                                .map( ( artist, key ) => {
+                                    return <Link key={ key } to={ `/artist/${ artist.id }` } >{ artist.name }</Link>;
                                 } )
                         }</p>
                         <p className="music-duration">

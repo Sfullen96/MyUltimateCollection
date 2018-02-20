@@ -1,7 +1,19 @@
 import React from 'react';
 import { Field, reduxForm } from "redux-form";
 
-const HeaderSearch = ( { handleSubmit, value, handleChange, music, showSearchPreview, onBlur } ) => {
+const HeaderSearch = (
+        {
+            handleSubmit,
+            value,
+            handleChange,
+            music,
+            showSearchPreview,
+            onBlur,
+            onHover,
+            onMouseOut,
+            onSearchResultClick,
+        }
+    ) => {
     return (
         <form className="navbar-form navbar-left" method="POST" action="" onSubmit={ handleSubmit }>
             <div className="row">
@@ -21,13 +33,16 @@ const HeaderSearch = ( { handleSubmit, value, handleChange, music, showSearchPre
                         />
                         {
                             music && music.length && showSearchPreview &&
-                            <div className="search-dropdown">
+                            <div
+                                className="search-dropdown"
+                                onMouseOut={ onMouseOut }
+                                onMouseOver={ onHover }>
                                 <ul className="search-list">
                                     {
                                         music
-                                            .map( ( _music ) => {
+                                            .map( ( _music, x ) => {
                                                 return (
-                                                    <div className="search-item">
+                                                    <div key={ x } className="search-item" onClick={ () => onSearchResultClick( _music.id ) } >
                                                         <li>{ _music.title }</li>
                                                         <i>{ _music.artists[ 0 ].name }</i>
                                                         {
