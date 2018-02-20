@@ -1,12 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Header, Footer } from '../components/common';
-import { AuthCheck } from "./";
 import {
     MusicRoutes as Music,
     CommonRoutes as Common,
 } from "./routeComponents";
-import { Pages } from './';
 
 export const routes = () =>
     <div className="app">

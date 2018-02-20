@@ -54,7 +54,6 @@ class MusicPage extends Component {
         if ( !music ) {
             return <h1> Loading... </h1>;
         }
-        console.log( "THIS>PROPS", this.props );
 
         return (
             <div className="music-page">

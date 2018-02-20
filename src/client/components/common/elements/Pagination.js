@@ -24,7 +24,7 @@ const renderPages = ( pageCount, currentPage, history, totalPages, location ) =>
     }
 
     for ( let i = startPage; i <= endPage; i++ ) {
-        _return.push( <li className={ i === parseInt( currentPage, 10 ) ? "active" : "" } ><a onClick={ () => paginationClick( currentPage, totalPages, parseInt( i, 10 ), history, location ) }>{ i }</a></li> );
+        _return.push( <li key={ i } className={ i === parseInt( currentPage, 10 ) ? "active" : "" } ><a onClick={ () => paginationClick( currentPage, totalPages, parseInt( i, 10 ), history, location ) }>{ i }</a></li> );
     }
 
     return _return;
@@ -59,7 +59,7 @@ function paginationClick( currentPage, totalPages, target = null, history, locat
 
     if ( parsed ) {
         Object.keys( parsed )
-            .map( ( e ) => {
+            .forEach( ( e ) => {
                 console.log( "e", e );
                 if ( e === "page" ) {
                     return;
@@ -75,8 +75,6 @@ function paginationClick( currentPage, totalPages, target = null, history, locat
 const Pagination = ( props ) => {
     const { currentPage, totalPages, totalRows, displayPages, location, history, resultsPerPage } = props;
     
-    console.log( "PROPS", props );
-
     return(
         <div className="container-fluid text-center">
             <nav aria-label="Page navigation">

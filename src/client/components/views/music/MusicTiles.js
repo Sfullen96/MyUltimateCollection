@@ -2,9 +2,6 @@ import React from "react";
 import { MusicTile } from "./elements";
 
 const MusicTiles = ( props ) => {
-    
-    console.log( "PROPS", props );
-
     return (
         <div>
             { props
