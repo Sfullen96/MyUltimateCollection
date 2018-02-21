@@ -66,7 +66,7 @@ class IndividualMusic extends Component {
                         <img className="individual-music-image" src={ music.image ? music.image : defaultImage } alt={ `${ music.title } album cover` } />
                     </div>
                     <div className="col-xs-12 col-sm-9 music-meta">
-                        <p className="music-format">{ music.format.name } ({music.disc_count} { music.disc_count > 1 ? "discs" : "disc" })</p>
+                        <p className="music-format">{ music.format.name } ({ music.disc_count } { music.disc_count > 1 ? "discs" : "disc" })</p>
                         <p className="music-title">{ music.title }</p>
                         <p className="music-artists">By {
                             music
@@ -91,6 +91,18 @@ class IndividualMusic extends Component {
                                     :
                                 `${ moment.utc( totalDuration * 1000 ).format( "m" ) } mins`
                             }
+                        </p>
+                        <p className="music-meta">
+                            {
+                                music.purchased_from &&
+                                <div>
+                                    <p><strong>Purchased:</strong> { music.purchased_from }</p>
+                                    { music.price && <p><strong>For:</strong> { music.price.startsWith( "£" ) ? music.price : `£${ music.price }` } </p> }
+                                </div>
+                            }
+                        </p>
+                        <p className="music-meta">
+                            Reference: { music.reference }
                         </p>
                     </div>
                 </div>
