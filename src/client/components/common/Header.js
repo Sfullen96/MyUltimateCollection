@@ -17,7 +17,11 @@ class Header extends Component {
     }
 
     onSearchResultClick = ( musicId ) => {
-        console.log( "CLICKEDEDED",  );
+        this.setState( {
+            hovering: false,
+            showSearchPreview: false,
+        } );
+
         this.props.history.push( `/music/${ musicId }` );
     };
 
@@ -73,7 +77,6 @@ class Header extends Component {
     };
 
     onHover = () => {
-        console.log( "HOVERING" );
         this.setState( {
             showSearchPreview: true,
             hovering: true,
@@ -81,14 +84,12 @@ class Header extends Component {
     };
 
     onMouseOut = () => {
-        console.log( "MOuSE OuT" );
         this.setState( {
             hovering: false,
         } );
     };
 
     onBlur = () => {
-        console.log( "BLURRRR",  );
         if ( !this.state.hovering ) {
             this.setState( {
                 showSearchPreview: false,

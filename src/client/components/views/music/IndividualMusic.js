@@ -16,6 +16,16 @@ class IndividualMusic extends Component {
         };
     }
 
+    componentWillReceiveProps( nextProps ) {
+        const { match, getMusicInformation } = this.props;
+
+        if ( nextProps && parseInt( nextProps.match.params.musicId, 10 ) !== parseInt( match.params.musicId, 10 ) ) {
+            const musicId = nextProps.match.params.musicId;
+            
+            getMusicInformation( musicId );
+        }
+    }
+
     componentDidMount() {
         const { match, getMusicInformation } = this.props;
 
@@ -35,7 +45,6 @@ class IndividualMusic extends Component {
         const { music } = this.props;
         const { descriptionExtended, buttonText } = this.state;
         
-
         if ( !music ) {
             return <h1> Loading... </h1>
         }

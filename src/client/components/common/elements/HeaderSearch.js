@@ -30,6 +30,7 @@ const HeaderSearch = (
                             onChange={ handleChange }
                             autoComplete="off"
                             onBlur={ onBlur }
+                            onFocus={ handleChange }
                         />
                         {
                             music && music.length && showSearchPreview &&
