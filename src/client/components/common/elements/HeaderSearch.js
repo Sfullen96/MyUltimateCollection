@@ -45,7 +45,13 @@ const HeaderSearch = (
                                                 return (
                                                     <div key={ x } className="search-item" onClick={ () => onSearchResultClick( _music.id ) } >
                                                         <li>{ _music.title }</li>
-                                                        <i>{ _music.artists[ 0 ].name }</i>
+                                                        <i>{
+                                                            _music.artists[ 0 ].name.includes( "(the)" ) || _music.artists[ 0 ].name.includes( "(The)" )
+                                                                ?
+                                                                `The ${ _music.artists[ 0 ].name.substring( 0, _music.artists[ 0 ].name.length - 6 ) }`
+                                                                :
+                                                                _music.artists[ 0 ].name
+                                                        }</i>
                                                         {
                                                             music.length > 1 &&
                                                             <hr/>

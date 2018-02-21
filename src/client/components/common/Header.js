@@ -5,13 +5,17 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom"
 import { searchActions, authActions } from '../../actions';
 
-class Header extends Component {
+type Props = {
+  music: string,
+};
+
+class Header extends Component<Props> {
     constructor() {
         super();
 
         this.state = {
             showSearchPreview: false,
-            loggedIn: localStorage.getItem( "token" ),
+            loggedIn: localStorage.getItem( "token" ) ? localStorage.getItem( "token" ) : null,
             hovering: false,
         }
     }
