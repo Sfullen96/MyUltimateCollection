@@ -31,3 +31,41 @@ export function getMusicInformation( musicId ) {
             } )
     }
 }
+
+export const DELETE_MUSIC_REQUEST = "DELETE_MUSIC_REQUEST";
+export const DELETE_MUSIC = "DELETE_MUSIC";
+export const DELETE_MUSIC_ERROR = "DELETE_MUSIC_ERROR";
+
+export function deleteMusic( musicId ) {
+    return dispatch => {
+        return new Promise( ( resolve, reject ) => {
+            dispatch( {
+                type: DELETE_MUSIC_REQUEST,
+                isRequesting: true,
+                error: false,
+            } );
+
+            requestHelpers
+                .postRequest( `/music/${ musicId }`, {}, "DELETE" )
+                .then( ( response ) => {
+                    dispatch( {
+                        type: DELETE_MUSIC,
+                        isRequesting: false,
+                        error: false,
+                        payload: response,
+                    } );
+
+                    return resolve( response );
+                } )
+                .catch( ( error ) => {
+                    dispatch( {
+                        type: DELETE_MUSIC_ERROR,
+                        isRequesting: false,
+                        error,
+                    } );
+
+                    return reject( error );
+                } )
+        } );
+    }
+}

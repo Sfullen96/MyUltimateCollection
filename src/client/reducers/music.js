@@ -7,6 +7,9 @@ export const music = ( state = {}, action ) => {
         case actions.GET_MUSIC_INFORMATION_REQUEST: return setIndividualMusicRequest( newState, action );
         case actions.GET_MUSIC_INFORMATION: return setIndividualMusic( newState, action );
         case actions.GET_MUSIC_INFORMATION_ERROR: return setIndividualMusicError( newState, action );
+        case actions.DELETE_MUSIC: return setDeletedMusic( newState, action );
+        case actions.DELETE_MUSIC_REQUEST: return setDeletedMusicRequest( newState, action );
+        case actions.DELETE_MUSIC_ERROR: return setDeletedMusicError( newState, action );
         default: return state;
     }
 };
@@ -24,7 +27,25 @@ function setIndividualMusic( newState, action ) {
 }
 
 function setIndividualMusicError( newState, action ) {
-    newState.musicFetchError = action.error;
+    newState.music = action.payload;
+
+    return newState;
+}
+
+function setDeletedMusic( newState, action ) {
+    newState.deletedMusic = action.payload.success;
+
+    return newState;
+}
+
+function setDeletedMusicRequest( newState, action ) {
+    newState.deletingMusic = action.isRequesting;
+
+    return newState;
+}
+
+function setDeletedMusicError( newState, action ) {
+    newState.deleteMusicError = action.error;
 
     return newState;
 }

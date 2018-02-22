@@ -41,6 +41,10 @@ class IndividualMusic extends Component {
         } );
     };
 
+    deleteMusic = ( musicId ) => {
+        console.log( "DELETING MUSIC...", musicId );
+    };
+
     render() {
         const { music } = this.props;
         const { descriptionExtended, buttonText } = this.state;
@@ -48,6 +52,8 @@ class IndividualMusic extends Component {
         if ( !music ) {
             return <h1> Loading... </h1>
         }
+
+        const accountId = parseInt( localStorage.getItem( "account_id" ), 10 );
 
         let totalDuration = 0;
 
@@ -61,6 +67,15 @@ class IndividualMusic extends Component {
 
         return(
             <div className="container individual-music-container">
+                {
+                    accountId === parseInt( music.uploader.id, 10 ) &&
+                        <div className="row">
+                            <button
+                                className="btn btn-danger pull-right no-radius"
+                                onClick={ () => this.deleteMusic( music.id ) }
+                            ><i className="fa fa-times"></i> Delete Album </button>
+                        </div>
+                }
                 <div className="row">
                     <div className="col-xs-12 col-sm-3">
                         <img className="individual-music-image" src={ music.image ? music.image : defaultImage } alt={ `${ music.title } album cover` } />
@@ -95,10 +110,10 @@ class IndividualMusic extends Component {
                         <p className="music-meta">
                             {
                                 music.purchased_from &&
-                                <div>
-                                    <p><strong>Purchased:</strong> { music.purchased_from }</p>
-                                    { music.price && <p><strong>For:</strong> { music.price.startsWith( "£" ) ? music.price : `£${ music.price }` } </p> }
-                                </div>
+                                <span>
+                                    <strong>Purchased:</strong> { music.purchased_from }
+                                    { music.price && ( music.price.startWith( "£" ) ? ` for ${ music.price }` : ` for £${ music.price }` ) }
+                                </span>
                             }
                         </p>
                         <p className="music-meta">
@@ -134,6 +149,7 @@ const mapStateToProps = ( state ) => ( {
 
 const mapDispatchToProps = ( dispatch ) => ( {
     getMusicInformation: ( musicId ) => dispatch( musicActions.getMusicInformation( musicId ) ),
+    deleteMusic: ( musicId ) => dispatch( musicActions.deleteMusic( musicId ) ),
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( IndividualMusic );
