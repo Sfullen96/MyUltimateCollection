@@ -49,7 +49,7 @@ export function postRequest( authenticated = false, url, body, method = "POST", 
             {
                 method,
                 headers: headers,
-                body: encoding === "URL" ? urlEncode( body ) : body,
+                body: body && encoding === "URL" ? urlEncode( body ) : body,
             } )
             .then( ( response ) => {
                 if ( !response.ok ) {

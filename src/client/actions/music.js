@@ -46,7 +46,7 @@ export function deleteMusic( musicId ) {
             } );
 
             requestHelpers
-                .postRequest( `/music/${ musicId }`, {}, "DELETE" )
+                .postRequest( true, `/music/${ musicId }`, null, "DELETE" )
                 .then( ( response ) => {
                     dispatch( {
                         type: DELETE_MUSIC,

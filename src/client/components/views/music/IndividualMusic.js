@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import moment from "moment";
 import { musicActions } from "../../../actions";
 import defaultImage from "../../../../../public/images/placeholder.png"
@@ -42,7 +42,12 @@ class IndividualMusic extends Component {
     };
 
     deleteMusic = ( musicId ) => {
-        console.log( "DELETING MUSIC...", musicId );
+        this.props.deleteMusic( musicId )
+            .then( ( response ) => {
+                if ( response.success ) {
+                    this.props.history.push( "/music" );
+                }
+            } );
     };
 
     render() {
@@ -152,5 +157,5 @@ const mapDispatchToProps = ( dispatch ) => ( {
     deleteMusic: ( musicId ) => dispatch( musicActions.deleteMusic( musicId ) ),
 } );
 
-export default connect( mapStateToProps, mapDispatchToProps )( IndividualMusic );
+export default connect( mapStateToProps, mapDispatchToProps )( withRouter( IndividualMusic ) );
 
