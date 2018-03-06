@@ -21,7 +21,7 @@ class IndividualMusic extends Component {
 
         if ( nextProps && parseInt( nextProps.match.params.musicId, 10 ) !== parseInt( match.params.musicId, 10 ) ) {
             const musicId = nextProps.match.params.musicId;
-            
+
             getMusicInformation( musicId );
         }
     }
@@ -53,7 +53,7 @@ class IndividualMusic extends Component {
     render() {
         const { music } = this.props;
         const { descriptionExtended, buttonText } = this.state;
-        
+
         if ( !music ) {
             return <h1> Loading... </h1>
         }
@@ -117,8 +117,10 @@ class IndividualMusic extends Component {
                                 music.purchased_from &&
                                 <span>
                                     <strong>Purchased:</strong> { music.purchased_from }
-                                    { music.price && ( music.price.startWith( "£" ) ? ` for ${ music.price }` : ` for £${ music.price }` ) }
+                                    {/*{ music.price && ( music.price.startWith( "£" ) ? ` for ${ music.price }` : ` for £${ music.price }` ) }*/}
                                 </span>
+
+
                             }
                         </p>
                         <p className="music-meta">
