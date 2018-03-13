@@ -4,6 +4,7 @@ import { Header, Footer } from '../components/common';
 import {
     MusicRoutes as Music,
     CommonRoutes as Common,
+    ArtistRoutes as Artist,
 } from "./routeComponents";
 
 export const routes = () =>
@@ -13,6 +14,7 @@ export const routes = () =>
         <div className="container-fluid" id="main-container">
             <Switch>
                 <Route path="/music" render={ props => <Music { ...props } /> } />
+                <Route path="/artist" render={ props => <Artist { ...props } /> } />
                 <Route render={ props => <Common { ...props } /> } />
             </Switch>
             {/*<Route render={ props => <AuthCheck { ...props } /> } />*/}

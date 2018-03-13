@@ -117,7 +117,7 @@ class IndividualMusic extends Component {
                                 music.purchased_from &&
                                 <span>
                                     <strong>Purchased:</strong> { music.purchased_from }
-                                    { music.price && ( music.price.startWith( "£" ) ? ` for ${ music.price }` : ` for £${ music.price }` ) }
+                                    { music.price && ( music.price.startsWith( "£" ) ? ` for ${ music.price }` : ` for £${ music.price }` ) }
                                 </span>
                             }
                         </p>

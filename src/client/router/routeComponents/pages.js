@@ -6,6 +6,7 @@ export const Pages = ( {
     Home: common.Home,
 	Music: music.MusicPage,
     IndividualMusic: music.IndividualMusic,
+    IndividualArtist: music.IndividualArtist,
     Login: authentication.Login,
 	NotFound: common.NotFound,
 } );
