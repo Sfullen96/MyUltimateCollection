@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from "redux-form";
+import defaultImage from "../../../../../public/images/placeholder.png"
 
 const HeaderSearch = (
         {
@@ -12,8 +13,11 @@ const HeaderSearch = (
             onHover,
             onMouseOut,
             onSearchResultClick,
+            searchResults,
         }
     ) => {
+    console.log( "SERARFG", searchResults && searchResults[ 0 ].music[ 0 ] );
+
     return (
         <form className="navbar-form navbar-left" method="POST" action="" onSubmit={ handleSubmit }>
             <div className="row">
@@ -33,34 +37,85 @@ const HeaderSearch = (
                             onFocus={ handleChange }
                         />
                         {
-                            music && music.length && showSearchPreview &&
+                            searchResults && searchResults[ 0 ] && ( searchResults[ 0 ].music.count > 0 || searchResults[ 0 ].artists.count > 0 ) && showSearchPreview &&
                             <div
-                                className="search-dropdown"
+                                className="search-dropdown container-fluid"
                                 onMouseOut={ onMouseOut }
                                 onMouseOver={ onHover }>
-                                <ul className="search-list">
-                                    {
-                                        music
-                                            .map( ( _music, x ) => {
-                                                return (
-                                                    <div key={ x } className="search-item" onClick={ () => onSearchResultClick( _music.id ) } >
-                                                        <li>{ _music.title }</li>
-                                                        <i>{
-                                                            _music.artists[ 0 ].name.includes( "(the)" ) || _music.artists[ 0 ].name.includes( "(The)" )
-                                                                ?
-                                                                `The ${ _music.artists[ 0 ].name.substring( 0, _music.artists[ 0 ].name.length - 6 ) }`
-                                                                :
-                                                                _music.artists[ 0 ].name
-                                                        }</i>
-                                                        {
-                                                            music.length > 1 &&
-                                                            <hr/>
-                                                        }
-                                                    </div>
-                                                );
-                                            } )
-                                    }
-                                </ul>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <ul className="search-list">
+                                            <h3>Music</h3>
+                                            <hr/>
+                                            {
+                                                searchResults[ 0 ].music &&
+                                                searchResults[ 0 ].music.count ?
+                                                searchResults[ 0 ]
+                                                    .music
+                                                    .rows
+                                                    .map( ( _music, x ) => {
+                                                        return (
+                                                            <div key={ x } className="search-item" onClick={ () => onSearchResultClick( _music.id, "music" ) } >
+                                                                <div className="hidden-xs">
+                                                                    <img src={ _music.image ? _music.image : defaultImage } />
+                                                                </div>
+                                                                <div className="music-search-result-title-container">
+                                                                    <li>{ _music.title }</li>
+                                                                    <i>{
+                                                                        _music.artists[ 0 ].name.includes( "(the)" ) || _music.artists[ 0 ].name.includes( "(The)" )
+                                                                            ?
+                                                                            `The ${ _music.artists[ 0 ].name.substring( 0, _music.artists[ 0 ].name.length - 6 ) }`
+                                                                            :
+                                                                            _music.artists[ 0 ].name
+                                                                    }</i>
+                                                                </div>
+                                                                {
+                                                                    searchResults[ 0 ].music.count > 1 &&
+                                                                    <hr/>
+                                                                }
+                                                            </div>
+                                                        );
+                                                    } ) : <h4>No music found</h4>
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <ul className="search-list">
+                                            <h3>Artists</h3>
+                                            <hr/>
+                                            {
+                                                searchResults[ 0 ].artists &&
+                                                searchResults[ 0 ].artists.count ?
+                                                searchResults[ 0 ]
+                                                    .artists
+                                                    .rows
+                                                    .map( ( _artist, x ) => {
+                                                        return (
+                                                            <div key={ x } className="search-item" onClick={ () => onSearchResultClick( _artist.id, "artists" ) } >
+                                                                <div className="hidden-xs">
+                                                                    <img src={ _artist.image ? _artist.image : defaultImage } />
+                                                                </div>
+                                                                <div className="music-search-result-title-container">
+                                                                    <li>{
+                                                                        _artist.name.includes( "(the)" ) || _artist.name.includes( "(The)" )
+                                                                            ?
+                                                                            `The ${ _artist.name.substring( 0, _artist.name.length - 6 ) }`
+                                                                            :
+                                                                            _artist.name
+                                                                    }</li>
+                                                                </div>
+                                                                {
+                                                                    searchResults[ 0 ].music.count > 1 &&
+                                                                    <hr/>
+                                                                }
+                                                            </div>
+                                                        );
+                                                    } ) : <h4>No artists found</h4>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+
                             </div>
                         }
                     </div>

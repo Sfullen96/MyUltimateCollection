@@ -13,7 +13,7 @@ export function handleSearchTermChange( accountId, keyword ) {
         } );
 
         requestHelpers
-            .getRequest( false, `/music/${ accountId }/all`, { keyword, limit: 5 } )
+            .getRequest( false, `/search/${ accountId }`, { keyword } )
             .then( ( response ) => {
                 return dispatch( {
                     type: HANDLE_SEARCH_TERM_CHANGE_SUCCESS,

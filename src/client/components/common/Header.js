@@ -16,13 +16,13 @@ class Header extends Component {
         }
     }
 
-    onSearchResultClick = ( musicId ) => {
+    onSearchResultClick = ( musicId, type = "music" ) => {
         this.setState( {
             hovering: false,
             showSearchPreview: false,
         } );
 
-        this.props.history.push( `/music/${ musicId }` );
+        this.props.history.push( `/${ type }/${ musicId }` );
     };
 
     goToSearchResults( keyword ) {
@@ -99,7 +99,7 @@ class Header extends Component {
 
     render() {
         const { loggedIn, showSearchPreview } = this.state;
-        const { music } = this.props;
+        const { searchResults } = this.props;
 
         return (
             <header>
@@ -119,7 +119,7 @@ class Header extends Component {
                                     <HeaderSearch
                                         onSubmit={ this.handleSearch }
                                         handleChange={ this.handleChange }
-                                        music={ music }
+                                        searchResults={ searchResults }
                                         showSearchPreview={ showSearchPreview }
                                         onBlur={ this.onBlur }
                                         onHover={ this.onHover }
@@ -166,7 +166,7 @@ class Header extends Component {
 
 const mapStateToProps = ( state ) => ( {
     searchTerm: state.searchTerm,
-    music: state.search.searchResults,
+    searchResults: state.search.searchResults,
 } );
 
 const mapDispatchToProps = ( dispatch ) => ( {
