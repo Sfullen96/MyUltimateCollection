@@ -7,8 +7,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "build-server": "NODE_ENV=development gulp --gulpfile build/buildServer.js",
-    "start-server": "NODE_ENV=development node dist/server/index.js",
-    "flow": "flow"
+    "start-server": "NODE_ENV=development node dist/server/index.js"
   },
   "dependencies": {
     "autoprefixer": "7.1.2",
@@ -70,7 +69,6 @@
   },
   "devDependencies": {
     "babel-eslint": "7.2.3",
-    "babel-preset-flow": "^6.23.0",
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-16": "^1.0.1",
     "eslint": "4.4.1",
@@ -80,7 +78,6 @@
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "7.1.0",
-    "flow-bin": "^0.66.0",
     "jest-cli": "^21.2.1",
     "node-sass": "^4.5.3",
     "react-test-renderer": "^16.0.0",

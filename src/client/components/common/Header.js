@@ -5,11 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom"
 import { searchActions, authActions } from '../../actions';
 
-type Props = {
-  music: string,
-};
-
-class Header extends Component<Props> {
+class Header extends Component {
     constructor() {
         super();
 
