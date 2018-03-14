@@ -91,7 +91,7 @@ const HeaderSearch = (
                                                     .rows
                                                     .map( ( _artist, x ) => {
                                                         return (
-                                                            <div key={ x } className="search-item" onClick={ () => onSearchResultClick( _artist.id, "artists" ) } >
+                                                            <div key={ x } className="search-item" onClick={ () => onSearchResultClick( _artist.id, "artist" ) } >
                                                                 <div className="hidden-xs">
                                                                     <img src={ _artist.image ? _artist.image : defaultImage } />
                                                                 </div>
