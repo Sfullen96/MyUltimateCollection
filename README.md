@@ -1,4 +1,4 @@
-## MyUltimateCollection ([http://myultimatecollection.com]() )
+## MyUltimateCollection ([http://myultimatecollection.com]())
 This application is a personal project for a family member with a large music collection, which he wanted cataloguing in something more than just a spreadsheet.
 It is built using React JS and Redux to call a separate API. It is bootstraped by [https://github.com/facebook/create-react-app]()
 
