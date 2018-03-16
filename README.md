@@ -32,5 +32,5 @@ npm run start
 - SASS
 - Bootstrap 3
 
-## Versioning
-No versioning is in place currently for this project as it is a work in progress
+## VCS
+I use GIT for my version control, as well as utilising elements of the [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) workflow, such as having a dev, staging and master branch, as well as using feature branches to properly test new features.
