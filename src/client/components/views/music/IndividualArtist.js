@@ -5,7 +5,7 @@ import { artistActions } from "../../../actions";
 import defaultImage from "../../../../../public/images/placeholder.png"
 
 class IndividualArtist extends Component {
-    constructor( props ){
+    constructor( props ) {
         super( props );
 
         this.state = {
