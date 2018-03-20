@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { artistActions } from "../../../actions";
 import defaultImage from "../../../../../public/images/placeholder.png"
+import { MusicHoverPreview } from "../music/elements";
 
 class IndividualArtist extends Component {
     constructor( props ) {
@@ -11,6 +12,7 @@ class IndividualArtist extends Component {
         this.state = {
             descriptionExtended: false,
             buttonText: "Show More",
+            showMusicHoverPreview: false,
         };
     }
 
@@ -37,6 +39,18 @@ class IndividualArtist extends Component {
         this.setState( {
             descriptionExtended: !this.state.descriptionExtended,
             buttonText: !this.state.descriptionExtended ? "Show Less" : "Show More",
+        } );
+    };
+
+    showMusicHoverPreview = () => {
+        this.setState( {
+            showMusicHoverPreview: true,
+        } );
+    };
+
+    hideMusicHoverPreview = () => {
+        this.setState( {
+            showMusicHoverPreview: false,
         } );
     };
 
@@ -67,11 +81,7 @@ class IndividualArtist extends Component {
                         <img className="individual-music-image" src={ artist.image ? artist.image : defaultImage } alt={ `${ artist.name }` } />
                     </div>
                     <div className="col-xs-12 col-sm-9 music-meta">
-                        <p className="music-title">{ artist.az_name }</p>
-                    </div>
-                </div>
-                <div className="row description-row">
-                    <div className="col-xs-12">
+                        <p className="music-title">{ artist.name }</p>
                         {
                             description &&
                             <p dangerouslySetInnerHTML={ { __html: description } }></p>
@@ -79,6 +89,36 @@ class IndividualArtist extends Component {
                         {
                             description && description.length >= 303 &&
                             <a onClick={ this.toggleDescription } className="toggle-description-link" >{ buttonText }</a>
+                        }
+                    </div>
+                </div>
+                <div className="row description-row">
+                    <div className="col-xs-12">
+                        <h2><strong>Albums you own by { artist.name }:</strong></h2>
+                    </div>
+                    <div className="artist-page-music-list">
+                        {
+                            this.state.showMusicHoverPreview &&
+                            <MusicHoverPreview
+                                onHover={ this.showMusicHoverPreview }
+                            />
+                        }
+                        {
+                            artist
+                                .music
+                                .map( ( music ) => {
+                                    return (
+                                        <div
+                                            onMouseOut={ this.hideMusicHoverPreview }
+                                            onMouseOver={ this.showMusicHoverPreview } >
+                                            <Link
+                                                to={ `/music/${ music.id }` }
+                                            >
+                                                <li>{ music.title }</li>
+                                            </Link>
+                                        </div>
+                                    );
+                                } )
                         }
                     </div>
                 </div>
