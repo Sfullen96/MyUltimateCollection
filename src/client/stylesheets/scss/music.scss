@@ -132,10 +132,14 @@ div .individual-music-container {
     p {
       font-size: 16px;
     }
-    .toggle-description-link {
-      cursor: pointer;
-    }
+
   }
+}
+
+.toggle-description-link {
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 15px;
 }
 
 /** Music Hover Preview MusicHoverPreview.js **/
