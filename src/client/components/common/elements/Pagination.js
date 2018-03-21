@@ -60,7 +60,6 @@ function paginationClick( currentPage, totalPages, target = null, history, locat
     if ( parsed ) {
         Object.keys( parsed )
             .forEach( ( e ) => {
-                console.log( "e", e );
                 if ( e === "page" ) {
                     return;
                 }

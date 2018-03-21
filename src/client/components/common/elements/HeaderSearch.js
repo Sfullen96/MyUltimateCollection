@@ -16,7 +16,6 @@ const HeaderSearch = (
             searchResults,
         }
     ) => {
-    console.log( "SERARFG", searchResults && searchResults[ 0 ].music[ 0 ] );
 
     return (
         <form className="navbar-form navbar-left" method="POST" action="" onSubmit={ handleSubmit }>

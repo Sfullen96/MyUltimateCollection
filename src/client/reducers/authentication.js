@@ -26,7 +26,6 @@ function userLoginAttempt( newState, action ) {
     }
 
     if ( action.type === "LOGIN_ATTEMPT_ERROR" ) {
-        console.log( "ERROR", action.error );
         newState.loginError = true;
         newState.errorCode = action.error.status;
     }

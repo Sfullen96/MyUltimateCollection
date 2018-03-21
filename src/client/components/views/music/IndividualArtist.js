@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { artistActions } from "../../../actions";
 import defaultImage from "../../../../../public/images/placeholder.png"
-import { MusicTiles, MusicList } from "../music";
+import { MusicTiles } from "../music";
 
 class IndividualArtist extends Component {
     constructor( props ) {
@@ -39,18 +39,6 @@ class IndividualArtist extends Component {
         this.setState( {
             descriptionExtended: !this.state.descriptionExtended,
             buttonText: !this.state.descriptionExtended ? "Show Less" : "Show More",
-        } );
-    };
-
-    showMusicHoverPreview = () => {
-        this.setState( {
-            showMusicHoverPreview: true,
-        } );
-    };
-
-    hideMusicHoverPreview = () => {
-        this.setState( {
-            showMusicHoverPreview: false,
         } );
     };
 
