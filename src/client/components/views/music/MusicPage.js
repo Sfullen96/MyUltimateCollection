@@ -56,7 +56,7 @@ class MusicPage extends Component {
         }
 
         return (
-            <div className="music-page">
+            <div className="music-list">
                 {/*<div className="row filter-bar">*/}
                     {/*<div className="pull-right">*/}
                         {/*<span className="show-list" onClick={ showTiles && this.toggleMusicView } disabled={ showList } >*/}
@@ -68,13 +68,16 @@ class MusicPage extends Component {
                     {/*</div>*/}
                 {/*</div>*/}
                 <div className="row">
-                    { showTiles ?
-                        <div>
-                            <MusicTiles music={ music }/>
-                            <div className="clearfix"></div>
-                             <Pagination { ...this.props } resultsPerPage={ musicMeta.results_per_page } displayPages={ 5 } currentPage={ musicMeta.current_page } totalPages={ musicMeta.total_pages } totalRows={ musicMeta.total_rows } />
-                        </div>
-                        :
+                    { showTiles &&
+                        <MusicTiles music={ music }/>
+                    }
+                    { showTiles &&
+                        <div className="clearfix"></div>
+                    }
+                    { showTiles &&
+                        <Pagination { ...this.props } resultsPerPage={ musicMeta.results_per_page } displayPages={ 5 } currentPage={ musicMeta.current_page } totalPages={ musicMeta.total_pages } totalRows={ musicMeta.total_rows } />
+                    }
+                    { !showTiles &&
                         <MusicList music={ music }/>
                     }
                 </div>

@@ -76,7 +76,7 @@ class IndividualMusic extends Component {
                     accountId === parseInt( music.uploader.id, 10 ) &&
                         <div className="row">
                             <button
-                                className="btn btn-danger pull-right no-radius"
+                                className="btn btn-danger ml-auto no-radius"
                                 onClick={ () => this.deleteMusic( music.id ) }
                             ><i className="fa fa-times"></i> Delete Album </button>
                         </div>
@@ -139,7 +139,7 @@ class IndividualMusic extends Component {
                     </div>
                 </div>
                 <div className="row music-track-table-row">
-                    <div className="col-xs-12">
+                    <div className="col-12">
                         <TrackTable tracks={ music.tracks } />
                     </div>
                 </div>

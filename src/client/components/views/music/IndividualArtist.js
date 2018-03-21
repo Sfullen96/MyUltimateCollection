@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { artistActions } from "../../../actions";
 import defaultImage from "../../../../../public/images/placeholder.png"
-import { MusicHoverPreview } from "../music/elements";
+import { MusicTiles, MusicList } from "../music";
 
 class IndividualArtist extends Component {
     constructor( props ) {
@@ -62,10 +62,6 @@ class IndividualArtist extends Component {
             return <h1> Loading... </h1>
         }
 
-        const accountId = parseInt( localStorage.getItem( "account_id" ), 10 );
-
-        let totalDuration = 0;
-
         let description = null;
 
         if ( artist.description && artist.description.length > 300 && descriptionExtended !== true ) {
@@ -92,34 +88,16 @@ class IndividualArtist extends Component {
                         }
                     </div>
                 </div>
-                <div className="row description-row">
-                    <div className="col-xs-12">
+                <div>
+                    <div className="col-12">
                         <h2><strong>Albums you own by { artist.name }:</strong></h2>
                     </div>
-                    <div className="artist-page-music-list">
-                        {
-                            this.state.showMusicHoverPreview &&
-                            <MusicHoverPreview
-                                onHover={ this.showMusicHoverPreview }
-                            />
-                        }
-                        {
-                            artist
-                                .music
-                                .map( ( music ) => {
-                                    return (
-                                        <div
-                                            onMouseOut={ this.hideMusicHoverPreview }
-                                            onMouseOver={ this.showMusicHoverPreview } >
-                                            <Link
-                                                to={ `/music/${ music.id }` }
-                                            >
-                                                <li>{ music.title }</li>
-                                            </Link>
-                                        </div>
-                                    );
-                                } )
-                        }
+                    <div className="music-list">
+                        <div className="row">
+                            <MusicTiles
+                                music={ artist.music }
+                                classString="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 music-item-container" />
+                        </div>
                     </div>
                 </div>
             </div>

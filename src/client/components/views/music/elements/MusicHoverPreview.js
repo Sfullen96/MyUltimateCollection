@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 class MusicHoverPreview extends Component {
     render() {
         return (
-            <div
-                className="showMusicHoverPreview"
-                onMouseOver={ this.props.onHover }>
+            <div className="showMusicHoverPreview">
                 <h1>HOVER PREVIEW!</h1>
             </div>
 
