@@ -13,7 +13,7 @@ export function getMusicInformation( musicId ) {
         } );
 
         requestHelpers
-            .getRequest( false, `/music/${ musicId }` )
+            .getRequest( true, `/music/${ musicId }` )
             .then( ( result ) => {
                 dispatch( {
                     type: GET_MUSIC_INFORMATION,

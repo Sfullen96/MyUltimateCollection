@@ -5,6 +5,10 @@
   border: 1px solid #333;
   position: absolute;
   z-index: 99999;
+  top: 37px;
+  .header-search-submit {
+    margin-left: 0 !important;
+  }
   .search-list {
     margin-bottom: 0;
     padding-left: 0;
@@ -73,3 +77,4 @@
     }
   }
 }
+

@@ -10,8 +10,10 @@ class HomepageMusic extends Component {
 
         let keyword = null;
 
+        console.log( "decodeURIComponent( this.props.location.search.substr( 1 ) )", queryString.parse(this.props.location.search) );
         const parsed = this.props.location.search ? queryString.parse( this.props.location.search ) : null;
         keyword = parsed && parsed.keyword ? parsed.keyword : null;
+        console.log( "THIS>.PROPS", keyword );
         getAccountMusic( 1, keyword );
     }
 

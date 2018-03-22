@@ -1,5 +1,4 @@
 import React from "react";
-import { DataTable as Table } from "react-data-components";
 
 const DataTable = ( props ) => {
     const tableColumns = props.columns;

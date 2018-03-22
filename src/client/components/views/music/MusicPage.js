@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import queryString from "query-string";
 import { accountActions } from "../../../actions";
-import { MusicTiles, MusicList } from "../music";
+import { MusicTiles, MusicTable } from "../music";
 import { Pagination } from "../../common/elements";
 
 class MusicPage extends Component {
@@ -49,7 +49,7 @@ class MusicPage extends Component {
 
     render() {
         const { music, musicMeta } = this.props;
-        const { showTiles } = this.state;
+        const { showTiles, showList } = this.state;
 
         if ( !music ) {
             return <h1> Loading... </h1>;
@@ -72,13 +72,10 @@ class MusicPage extends Component {
                         <MusicTiles music={ music }/>
                     }
                     { showTiles &&
-                        <div className="clearfix"></div>
-                    }
-                    { showTiles &&
                         <Pagination { ...this.props } resultsPerPage={ musicMeta.results_per_page } displayPages={ 5 } currentPage={ musicMeta.current_page } totalPages={ musicMeta.total_pages } totalRows={ musicMeta.total_rows } />
                     }
                     { !showTiles &&
-                        <MusicList music={ music }/>
+                        <MusicTable music={ music }/>
                     }
                 </div>
             </div>
@@ -92,7 +89,6 @@ const mapStateToProps = ( state ) => {
         musicFetchError: state.account.musicFetchError,
         music: state.account.music,
         musicMeta: state.account.musicMeta,
-        showList: state.showList,
     }
 };
 

@@ -7,7 +7,6 @@ const HeaderSearch = (
             handleSubmit,
             value,
             handleChange,
-            music,
             showSearchPreview,
             onBlur,
             onHover,
@@ -18,7 +17,7 @@ const HeaderSearch = (
     ) => {
 
     return (
-        <form className="navbar-form navbar-left" method="POST" action="" onSubmit={ handleSubmit }>
+        <form className="navbar-form navbar-left form-inline my-2 my-lg-0" method="POST" action="" onSubmit={ handleSubmit }>
             <div className="row">
                 <div className="col-xs-12 col-sm-12">
                     <div className="form-group">
@@ -35,6 +34,7 @@ const HeaderSearch = (
                             onBlur={ onBlur }
                             onFocus={ handleChange }
                         />
+                        <button className="btn btn-outline-light my-2 my-sm-0 header-search-submit" type="submit">Search</button>
                         {
                             searchResults && searchResults[ 0 ] && ( searchResults[ 0 ].music.count > 0 || searchResults[ 0 ].artists.count > 0 ) && showSearchPreview &&
                             <div

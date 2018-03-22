@@ -6,6 +6,7 @@ import { Pages } from "../";
 export const MusicRoutes = ( props ) =>
     <Switch>
         <AuthenticatedRoute exact path={ props.match.url } component={ Pages.Music } />
+        <AuthenticatedRoute exact path={ `${ props.match.url }/add` } component={ Pages.AddNewMusicPage } />
         <AuthenticatedRoute exact path={ `${ props.match.url }/:musicId` } component={ Pages.IndividualMusic } />
         <Route component={ Pages.NotFound } />
     </Switch>;

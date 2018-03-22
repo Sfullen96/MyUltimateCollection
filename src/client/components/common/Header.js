@@ -122,7 +122,7 @@ class Header extends Component {
                             <Link to="/home" className="nav-link">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/add-music" className="nav-link">Add Music</Link>
+                            <Link to="/music/add" className="nav-link">Add Music</Link>
                         </li>
                         <li className="nav-item">
                             <Link to="/music" className="nav-link">View Library</Link>
