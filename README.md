@@ -14,7 +14,11 @@ It is styled using CSS and SASS, with the help of Bootstrap, and configured usin
 git clone https://github.com/Sfullen96/MyUltimateCollection.git
 ```
 
-### Navigate into the folder (```cd MyUltimateCollection```)
+### Navigate into the folder
+```
+cd MyUltimateCollection
+```
+### Install the node modules
 ``` 
 npm install
 ```
