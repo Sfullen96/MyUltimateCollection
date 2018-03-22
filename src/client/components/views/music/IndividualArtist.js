@@ -77,9 +77,7 @@ class IndividualArtist extends Component {
                     </div>
                 </div>
                 <div>
-                    <div className="col-12">
-                        <h2><strong>Albums you own by { artist.name }:</strong></h2>
-                    </div>
+                    <h2 className="mt-3"><strong>Albums you own by { artist.name }:</strong></h2>
                     <div className="music-list">
                         <div className="row">
                             <MusicTiles

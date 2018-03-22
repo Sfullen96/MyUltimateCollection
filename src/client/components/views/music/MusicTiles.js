@@ -7,7 +7,7 @@ const MusicTiles = ( props ) => {
             .music
             .map( ( item, key ) => {
                 return (
-                    <div className={ !props.classString ? ` col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 music-item-container ` : props.classString } key={ key } >
+                    <div className={ !props.classString ? ` col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 mr-auto music-item-container ` : props.classString } key={ key } >
                         <MusicTile music={ item } key={ key } />
                     </div>
                 )

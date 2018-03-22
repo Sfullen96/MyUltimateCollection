@@ -24,7 +24,7 @@ const renderPages = ( pageCount, currentPage, history, totalPages, location ) =>
     }
 
     for ( let i = startPage; i <= endPage; i++ ) {
-        _return.push( <li key={ i } className={ i === parseInt( currentPage, 10 ) ? "active" : "" } ><a onClick={ () => paginationClick( currentPage, totalPages, parseInt( i, 10 ), history, location ) }>{ i }</a></li> );
+        _return.push( <li key={ i } className={ i === parseInt( currentPage, 10 ) ? "active page-item" : "page-item" } ><a className="page-link" onClick={ () => paginationClick( currentPage, totalPages, parseInt( i, 10 ), history, location ) }>{ i }</a></li> );
     }
 
     return _return;
@@ -77,24 +77,28 @@ const Pagination = ( props ) => {
     return(
         <div className="container-fluid text-center">
             <nav aria-label="Page navigation">
-                <ul className="pagination">
-                    <li>
-                        <a onClick={ () => paginationClick( currentPage, totalPages, "first", history, location ) } aria-label="First">
+                <ul className="pagination justify-content-center">
+                    <li className="page-item">
+                        <a className="page-link" onClick={ () => paginationClick( currentPage, totalPages, "first", history, location ) } aria-label="First">
                             <span aria-hidden="true"><i className="fa fa-angle-double-left"></i></span>
                         </a>
-                        <a onClick={ () => paginationClick( currentPage, totalPages, "previous", history, location ) } aria-label="Previous">
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" onClick={ () => paginationClick( currentPage, totalPages, "previous", history, location ) } aria-label="Previous">
                             <span aria-hidden="true"><i className="fa fa-angle-left"></i></span>
                         </a>
                     </li>
                     {
                         renderPages( displayPages <= totalPages ? displayPages : totalPages, currentPage, history, totalPages, location )
                     }
-                    <li>
+                    <li className="page-item">
                         {/*{ `${ match.path }${ location.search ? ( location.search.includes( "page=" ) ? location.search : "" ) + "&page" : "?page" }=${ ( currentPage + 1 <= totalPages ? currentPage + 1 : totalPages ) }` }*/}
-                        <a onClick={ () => paginationClick( currentPage, totalPages, "next", history, location ) } aria-label="Next">
+                        <a className="page-link" onClick={ () => paginationClick( currentPage, totalPages, "next", history, location ) } aria-label="Next">
                             <span aria-hidden="true"><i className="fa fa-angle-right"></i></span>
                         </a>
-                        <a onClick={ () => paginationClick( currentPage, totalPages, "last", history, location ) } aria-label="Last">
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" onClick={ () => paginationClick( currentPage, totalPages, "last", history, location ) } aria-label="Last">
                             <span aria-hidden="true"><i className="fa fa-angle-double-right"></i></span>
                         </a>
                     </li>
