@@ -1,11 +1,20 @@
 import React from "react";
 
-const TableRow = () => {
+const TableRow = ( { data } ) => {
     return (
-        <table>
+        data
+            .map( ( d ) => {
+                    return <tr>
+                        {
+                            Object.keys( d )
+                                .map( ( key ) => {
+                                    return <td>{ d[ key ] }</td>
+                                } )
+                        }
+                    </tr>
+            } )
+    )
 
-        </table>
-    );
 };
 
 export default TableRow;

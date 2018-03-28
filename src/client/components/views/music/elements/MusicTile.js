@@ -19,20 +19,20 @@ const MusicTile = ( props ) => {
                         }
                     </Link>
                 </h3>
-                <h4>
-                    {
-                        props.music.artists.map( ( artist, key ) => {
-                            return <Link to={ `/artist/${ artist.id }` } key={ key }>{
-                                artist.name.includes( "(the)" ) || artist.name.includes( "(The)" )
-                                    ?
-                                    `The ${ artist.name.substring( 0, artist.name.length - 6 ) }`
-                                    :
-                                    artist.name
-                            }
-                            </Link>;
-                        } )
-                    }
-                </h4>
+                {/*<h4>*/}
+                    {/*{*/}
+                        {/*props.music.artists.map( ( artist, key ) => {*/}
+                            {/*return <Link to={ `/artist/${ artist.id }` } key={ key }>{*/}
+                                {/*artist.name.includes( "(the)" ) || artist.name.includes( "(The)" )*/}
+                                    {/*?*/}
+                                    {/*`The ${ artist.name.substring( 0, artist.name.length - 6 ) }`*/}
+                                    {/*:*/}
+                                    {/*artist.name*/}
+                            {/*}*/}
+                            {/*</Link>;*/}
+                        {/*} )*/}
+                    {/*}*/}
+                {/*</h4>*/}
             </div>
         </div>
     );

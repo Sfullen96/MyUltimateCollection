@@ -10,8 +10,8 @@ class MusicPage extends Component {
         super( props );
 
         this.state = {
-            showList: false,
-            showTiles: true,
+            showList: true,
+            showTiles: false,
         };
     }
 
@@ -57,16 +57,16 @@ class MusicPage extends Component {
 
         return (
             <div className="music-list">
-                {/*<div className="row filter-bar">*/}
-                    {/*<div className="pull-right">*/}
-                        {/*<span className="show-list" onClick={ showTiles && this.toggleMusicView } disabled={ showList } >*/}
-                            {/*<i className="fa fa-list" disabled={ showList } ><h6> Show List </h6></i>*/}
-                        {/*</span>*/}
-                        {/*<span className="show-tiles" onClick={ showList && this.toggleMusicView } disabled={ showTiles } >*/}
-                            {/*<i className="fa fa-square" disabled={ showList } ><h6> Show Tiles </h6></i>*/}
-                        {/*</span>*/}
-                    {/*</div>*/}
-                {/*</div>*/}
+                <div className="row filter-bar">
+                    <div className="pull-right">
+                        <span className="show-list" onClick={ showTiles && this.toggleMusicView } disabled={ showList } >
+                            <i className="fa fa-list" disabled={ showList } ><h6> Show List </h6></i>
+                        </span>
+                        <span className="show-tiles" onClick={ showList && this.toggleMusicView } disabled={ showTiles } >
+                            <i className="fa fa-square" disabled={ showList } ><h6> Show Tiles </h6></i>
+                        </span>
+                    </div>
+                </div>
                 <div className="row">
                     { showTiles &&
                         <MusicTiles music={ music }/>
@@ -75,7 +75,7 @@ class MusicPage extends Component {
                         <Pagination { ...this.props } resultsPerPage={ musicMeta.results_per_page } displayPages={ 5 } currentPage={ musicMeta.current_page } totalPages={ musicMeta.total_pages } totalRows={ musicMeta.total_rows } />
                     }
                     { !showTiles &&
-                        <MusicTable music={ music }/>
+                        <MusicTable music={ music } meta={ musicMeta } />
                     }
                 </div>
             </div>
