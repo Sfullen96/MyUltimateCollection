@@ -1,18 +1,13 @@
 import React from "react";
 
-const TableRow = ( { data } ) => {
+const TableRow = ( { data, columns } ) => {
     return (
-        data
-            .map( ( d ) => {
-                    return <tr>
-                        {
-                            Object.keys( d )
-                                .map( ( key ) => {
-                                    return <td>{ d[ key ] }</td>
-                                } )
-                        }
-                    </tr>
-            } )
+        <tr>
+            { columns.map( ( column, index ) => {
+                console.log( "COL", column, data[ column.column ] );
+                return <td key={ index }>{ data[ column.column ] }</td>;
+            } ) }
+        </tr>
     )
 
 };

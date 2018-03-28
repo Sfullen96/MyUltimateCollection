@@ -29,7 +29,10 @@ const Table = ( { data, columns } ) => {
         <table className="table">
             <TableHeader columns={ _columns } />
             {
-                <TableRow data={ data } />
+                Object.keys( data ).map( ( row, index ) => {
+                    return <TableRow data={ data[ row ] } columns={ columns } key={ index } />
+                } )
+
             }
         </table>
     );
