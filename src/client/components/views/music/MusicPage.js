@@ -10,9 +10,11 @@ class MusicPage extends Component {
         super( props );
 
         this.state = {
-            showList: true,
-            showTiles: false,
+            showList: localStorage.getItem( 'showList' ) === "true" || localStorage.getItem( 'showList' ) === true ? true : false,
+            showTiles: localStorage.getItem( 'showTiles' ) === "true" || localStorage.getItem( 'showTiles' ) === true ? true : false,
         };
+        
+        console.log( "STATE", this.state );
     }
 
     componentDidMount() {
@@ -42,7 +44,11 @@ class MusicPage extends Component {
 
         if ( showList ) {
             this.setState( { showList: false, showTiles: true } );
+            localStorage.setItem( "showList", false );
+            localStorage.setItem( "showTiles", true );
         } else {
+            localStorage.setItem( "showList", true );
+            localStorage.setItem( "showTiles", false );
             this.setState( { showList: true, showTiles: false } );
         }
     };
@@ -55,28 +61,37 @@ class MusicPage extends Component {
             return <h1> Loading... </h1>;
         }
 
+        console.log( "STATE", showTiles, showList );
+
         return (
             <div className="music-list">
                 <div className="row filter-bar">
-                    <div className="pull-right">
-                        <span className="show-list" onClick={ showTiles && this.toggleMusicView } disabled={ showList } >
-                            <i className="fa fa-list" disabled={ showList } ><h6> Show List </h6></i>
+                    <div className="ml-auto">
+                        <span
+                            className="show-list"
+                            onClick={ !showList && this.toggleMusicView } >
+                            <i
+                                className="fa fa-list"
+                                style={ { color: showList ? "red" : "#333" } }>
+                            </i>
                         </span>
-                        <span className="show-tiles" onClick={ showList && this.toggleMusicView } disabled={ showTiles } >
-                            <i className="fa fa-square" disabled={ showList } ><h6> Show Tiles </h6></i>
+                        <span
+                            className="show-tiles"
+                            onClick={ !showTiles && this.toggleMusicView } >
+                            <i
+                                className="fa fa-square"
+                                style={ { color: showTiles ? "red" : "#333" } }>
+                            </i>
                         </span>
                     </div>
                 </div>
                 <div className="row">
-                    { showTiles &&
+                    { showTiles ?
                         <MusicTiles music={ music }/>
-                    }
-                    { showTiles &&
-                        <Pagination { ...this.props } resultsPerPage={ musicMeta.results_per_page } displayPages={ 5 } currentPage={ musicMeta.current_page } totalPages={ musicMeta.total_pages } totalRows={ musicMeta.total_rows } />
-                    }
-                    { !showTiles &&
+                        :
                         <MusicTable music={ music } meta={ musicMeta } />
                     }
+                    <Pagination { ...this.props } resultsPerPage={ musicMeta.results_per_page } displayPages={ 5 } currentPage={ musicMeta.current_page } totalPages={ musicMeta.total_pages } totalRows={ musicMeta.total_rows } />
                 </div>
             </div>
         );

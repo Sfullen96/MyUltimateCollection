@@ -18,6 +18,8 @@ class Login extends Component {
     componentWillReceiveProps( nextProps ) {
         if( this.props !== nextProps ) {
             if ( nextProps.account ) {
+                localStorage.setItem( "showList", false );
+                localStorage.setItem( "showTiles", true );
                 Object.entries( nextProps.account ).map( ( [ key, value ] ) => localStorage.setItem( key, value ) );
                 localStorage.setItem( 'unauthorized', 0 );
             }

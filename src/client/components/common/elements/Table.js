@@ -14,26 +14,18 @@ const Table = ( { data, columns } ) => {
             return col.column;
         } );
 
-    data.forEach( ( d ) => {
-        return Object.keys( d )
-            .forEach( ( key ) => {
-                if ( columnKeys.indexOf( key ) === -1 ) {
-                    delete d[ key ];
-                }
-            } );
-    } );
-
-    console.log( "DATA", data );
+    const _data = data;
 
     return (
-        <table className="table">
+        <table className="table table-striped">
             <TableHeader columns={ _columns } />
-            {
-                Object.keys( data ).map( ( row, index ) => {
-                    return <TableRow data={ data[ row ] } columns={ columns } key={ index } />
-                } )
-
-            }
+            <tbody>
+                {
+                    Object.keys( _data ).map( ( row, index ) => {
+                        return <TableRow data={ _data[ row ] } columns={ columns } key={ index } />
+                    } )
+                }
+            </tbody>
         </table>
     );
 };

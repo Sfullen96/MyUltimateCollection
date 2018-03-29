@@ -14,15 +14,16 @@
       user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
       cursor: pointer;
-      font-size: 50px;
+      font-size: 25px;
       -ms-text-align-last: center;
       text-align-last: center;
+      border-radius: 0 !important;
       &:hover {
-        color: red;
+        color: red !important;
       }
     }
     span:nth-child(1) {
-      margin-right: 40px;
+      margin-right: 20px;
     }
   }
   .music-item-container {

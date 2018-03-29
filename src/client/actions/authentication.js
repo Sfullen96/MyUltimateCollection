@@ -14,13 +14,15 @@ export function loginAccountAttempt( usernameOrEmail, password ) {
             } );
 
             let localStorage = {};
-
+            
             requestHelpers
                 .postRequest( false, `/authentication/token`, { email_address: usernameOrEmail, password } )
                 .then( ( response ) => {
                     localStorage = {
                         token: response.data.token,
                         account_id: response.data.id,
+                        showList: false,
+                        showTiles: true,
                     };
 
                     return dispatch( {
