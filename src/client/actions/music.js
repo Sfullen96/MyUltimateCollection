@@ -69,3 +69,88 @@ export function deleteMusic( musicId ) {
         } );
     }
 }
+
+export const ADD_NEW_MUSIC_REQUEST = "ADD_NEW_MUSIC_REQUEST";
+export const ADD_NEW_MUSIC = "ADD_NEW_MUSIC";
+export const ADD_NEW_MUSIC_ERROR = "ADD_NEW_MUSIC_ERROR";
+
+export function createNewMusic( music ) {
+    return dispatch => {
+        return new Promise( ( resolve, reject ) => {
+            dispatch( {
+                type: ADD_NEW_MUSIC_REQUEST,
+                isRequesting: true,
+                error: false,
+            } );
+
+            const _music = { ...music };
+
+            delete _music.artist;
+            delete _music.format_id;
+
+            _music.artists = music.artist.map( ( a ) => { return a.id } );
+            _music.format_id = music.format_id.id;
+
+            console.log( "_MUSIC", _music );
+
+            requestHelpers
+                .postRequest( true, "/music/create", { ..._music } )
+                .then( ( response ) => {
+                    dispatch( {
+                        type: ADD_NEW_MUSIC,
+                        isRequesting: false,
+                        error: false,
+                        payload: response,
+                    } );
+
+                    return resolve( response );
+                } )
+                .catch( ( error ) => {
+                    dispatch( {
+                        type: ADD_NEW_MUSIC_ERROR,
+                        isRequesting: false,
+                        error,
+                    } );
+
+                    return reject( error );
+                } )
+        } );
+    }
+}
+
+export const GET_MUSIC_FORMATS_REQUEST = "GET_MUSIC_FORMATS_REQUEST";
+export const GET_MUSIC_FORMATS = "GET_MUSIC_FORMATS";
+export const GET_MUSIC_FORMATS_ERROR = "GET_MUSIC_FORMATS_ERROR";
+
+export function getMusicFormats() {
+    return dispatch => {
+        return new Promise( ( resolve, reject ) => {
+            dispatch( {
+                type: GET_MUSIC_FORMATS_REQUEST,
+                isFetching: true,
+                error: false,
+            } );
+
+            requestHelpers
+                .getRequest( true, "/music/formats" )
+                .then( ( response ) => {
+                    dispatch( {
+                        type: GET_MUSIC_FORMATS,
+                        isFetching: false,
+                        error: false,
+                        payload: response.data,
+                    } );
+                    return resolve( response );
+                } )
+                .catch( ( error ) => {
+                    dispatch( {
+                        type: GET_MUSIC_FORMATS_ERROR,
+                        isRequesting: false,
+                        error,
+                    } );
+
+                    return reject( error );
+                } );
+        } );
+    }
+}

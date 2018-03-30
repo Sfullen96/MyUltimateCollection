@@ -92,7 +92,7 @@ class IndividualMusic extends Component {
                             music
                                 .artists
                                 .map( ( artist, key ) => {
-                                    return <Link key={ key } to={ `/artist/${ artist.id }` } >{ artist.name }</Link>;
+                                    return <Link key={ key } to={ `/artist/${ artist.id }` } >{ artist.name } { music.artists.length > 1 && key !== music.artists.length - 1 && "|" } </Link>;
                                 } )
                         }</p>
                         <p className="music-duration">
