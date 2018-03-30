@@ -10,6 +10,9 @@ export const music = ( state = {}, action ) => {
         case actions.DELETE_MUSIC: return setDeletedMusic( newState, action );
         case actions.DELETE_MUSIC_REQUEST: return setDeletedMusicRequest( newState, action );
         case actions.DELETE_MUSIC_ERROR: return setDeletedMusicError( newState, action );
+        case actions.GET_MUSIC_FORMATS_REQUEST: return setMusicFormatsRequest( newState, action );
+        case actions.GET_MUSIC_FORMATS: return setMusicFormats( newState, action );
+        case actions.GET_MUSIC_FORMATS_ERROR: return setMusicFormatsError( newState, action );
         default: return state;
     }
 };
@@ -46,6 +49,24 @@ function setDeletedMusicRequest( newState, action ) {
 
 function setDeletedMusicError( newState, action ) {
     newState.deleteMusicError = action.error;
+
+    return newState;
+}
+
+function setMusicFormatsRequest( newState, action ) {
+    newState.musicFormatFetch = action.isFetching;
+
+    return newState;
+}
+
+function setMusicFormats( newState, action ) {
+    newState.formats = action.payload;
+
+    return newState;
+}
+
+function setMusicFormatsError( newState, action ) {
+    newState.musicFormatError = action.error;
 
     return newState;
 }

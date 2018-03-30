@@ -4,16 +4,38 @@ import moment from "moment";
 import * as _Form from "../../../../helpers/formFieldHelpers";
 
 const AddNewMusicForm = ( props ) => {
-    const { handleSubmit, submitting } = props;
-
+    const { handleSubmit, submitting, artists, formats } = props;
+    
     return (
         <Form onSubmit={ handleSubmit }>
-            <div className="form-group">
-                <Field
-                    name="title"
-                    placeholder="Title..."
-                    component={ _Form.textField }
-                />
+            <div className="row">
+                <div className="col-12 col-sm-12 col-md-6">
+                    <div className="form-group">
+                        <Field
+                            name="title"
+                            placeholder="Title..."
+                            component={ _Form.textField }
+                        />
+                    </div>
+                </div>
+                <div className="col-12 col-sm-12 col-md-6">
+                    <div className="form-group">
+                        <Field
+                            name="artist"
+                            placeholder="Artist(s)..."
+                            options={
+                                artists
+                                    .map( ( artist ) => {
+                                        return {
+                                            id: artist.id,
+                                            name: artist.name,
+                                        }
+                                    } )
+                            }
+                            component={ _Form.multiSelectField }
+                        />
+                    </div>
+                </div>
             </div>
             <div className="form-group">
                 <Field
@@ -29,13 +51,15 @@ const AddNewMusicForm = ( props ) => {
                             name="format_id"
                             placeholder="Format"
                             component={ _Form.selectField }
-                            options={ [ {
-                                name: "CD",
-                                id: 1,
-                            }, {
-                                name: "CD x2",
-                                id: 2,
-                            } ] }
+                            options={
+                                formats
+                                    .map( ( format ) => {
+                                        return {
+                                            id: format.id,
+                                            name: format.name,
+                                        }
+                                    } )
+                            }
                         />
                     </div>
                     <div className="col-12 col-sm-12 col-md-6">
@@ -67,13 +91,25 @@ const AddNewMusicForm = ( props ) => {
                 </div>
             </div>
             <div className="form-group">
-                <Field
-                    name="price"
-                    placeholder="Price..."
-                    component={ _Form.textField }
-                />
+                <div className="row">
+                    <div className="col-12 col-sm-12 col-md-6">
+                        <div className="form-group">
+                            <Field
+                                name="price"
+                                placeholder="Price..."
+                                component={ _Form.textField }
+                            />
+                        </div>
+                    </div>
+                    <div className="col-12 col-sm-12 col-md-6">
+                        <Field
+                            name="reference"
+                            placeholder="Reference"
+                            component={ _Form.textField }
+                        />
+                    </div>
+                </div>
             </div>
-
             <button type="submit" className="btn btn-primary margin-bottom" disabled={ submitting }> Login </button>
         </Form>
     )
