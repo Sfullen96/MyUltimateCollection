@@ -13,6 +13,9 @@ export const music = ( state = {}, action ) => {
         case actions.GET_MUSIC_FORMATS_REQUEST: return setMusicFormatsRequest( newState, action );
         case actions.GET_MUSIC_FORMATS: return setMusicFormats( newState, action );
         case actions.GET_MUSIC_FORMATS_ERROR: return setMusicFormatsError( newState, action );
+        case actions.GET_LAST_FM_INFO_REQUEST: return setLastFmInfoRequest( newState, action );
+        case actions.GET_LAST_FM_INFO: return setLastFmInfo( newState, action );
+        case actions.GET_LAST_FM_INFO_ERROR: return setLastFmInfoError( newState, action );
         default: return state;
     }
 };
@@ -66,6 +69,24 @@ function setMusicFormats( newState, action ) {
 }
 
 function setMusicFormatsError( newState, action ) {
+    newState.musicFormatError = action.error;
+
+    return newState;
+}
+
+function setLastFmInfoRequest( newState, action ) {
+    newState.musicFormatFetch = action.isFetching;
+
+    return newState;
+}
+
+function setLastFmInfo( newState, action ) {
+    newState.lastFm = action.payload;
+
+    return newState;
+}
+
+function setLastFmInfoError( newState, action ) {
     newState.musicFormatError = action.error;
 
     return newState;

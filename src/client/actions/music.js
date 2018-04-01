@@ -154,3 +154,51 @@ export function getMusicFormats() {
         } );
     }
 }
+
+export const GET_LAST_FM_INFO_REQUEST = "GET_LAST_FM_INFO_REQUEST";
+export const GET_LAST_FM_INFO = "GET_LAST_FM_INFO";
+export const GET_LAST_FM_INFO_ERROR = "GET_LAST_FM_INFO_ERROR";
+
+export function getLastFmInfo( musicTitle, musicId ) {
+    return dispatch => {
+        return new Promise( ( resolve, reject ) => {
+            dispatch( {
+                type: GET_LAST_FM_INFO_REQUEST,
+                isRequesting: true,
+                error: false,
+            } );
+
+            let params = {};
+
+            if ( musicTitle ) {
+                params.album_title = musicTitle;
+            }
+
+            if ( musicId ) {
+                params.album_id = musicId;
+            }
+
+            requestHelpers
+                .getRequest( false, "/last-fm/album/get-info", params )
+                .then( ( response ) => {
+                    dispatch( {
+                        type: GET_LAST_FM_INFO,
+                        isRequesting: false,
+                        error: false,
+                        payload: response,
+                    } );
+
+                    return resolve( response );
+                } )
+                .catch( ( error ) => {
+                    dispatch( {
+                        type: GET_LAST_FM_INFO_ERROR,
+                        isRequesting: false,
+                        error,
+                    } );
+
+                    return reject( error );
+                } )
+        } );
+    }
+}

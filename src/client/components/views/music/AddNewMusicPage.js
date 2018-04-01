@@ -18,6 +18,12 @@ class AddNewMusicPage extends Component {
             } );
     };
 
+    getAlbumInfo = ( title, artist ) => {
+        const { getLastFmInfo } = this.props;
+
+        getLastFmInfo( title, artist );
+    };
+
     render() {
         const { artists, formats } = this.props;
 
@@ -32,6 +38,7 @@ class AddNewMusicPage extends Component {
                     onSubmit={ this.formSubmit }
                     artists={ artists }
                     formats={ formats }
+                    getAlbumInfo={ this.getAlbumInfo }
                 />
             </div>
         );
@@ -41,12 +48,14 @@ class AddNewMusicPage extends Component {
 const mapStateToProps = ( state ) => ( {
     artists: state.artist.artists,
     formats: state.music.formats,
+    lastFmInfo: state.music.lastFm,
 } );
 
 const mapDispatchToProps = ( dispatch ) => ( {
     getAllArtists: ( paginate = false ) => dispatch( artistActions.getAllArtists( false ) ),
     addNewMusic: ( music ) => dispatch( musicActions.createNewMusic( music ) ),
     getMusicFormats: () => dispatch( musicActions.getMusicFormats() ),
+    getLastFmInfo: ( title ) => dispatch( musicActions.getLastFmInfo( title ) )
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( AddNewMusicPage );
