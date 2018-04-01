@@ -137,7 +137,7 @@ AddNewMusicForm = connect(
     state => {
         // or together as a group
         const { title, artist } = selector( state, 'title', 'artist' );
-        this.changeArtist( title, artist );
+        // AddNewMusicForm.changeArtist( title, artist );
         return {
             title,
             artist,
