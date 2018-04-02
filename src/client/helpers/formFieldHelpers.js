@@ -91,14 +91,17 @@ export const renderField = ( { input, label, type, placeholder, className, meta:
     );
 }
 
-export function textEditor( { input, label, placeholder = null, meta: { touched, error, warning } } ) {
+export function textEditor( { input, value, label, placeholder = null, meta: { touched, error, warning } } ) {
     return (
         <div>
             { label && <label>{ label }</label> }
 
+            { console.log( "INPUT", input, value ) }
+
             <ReactQuill { ...input }
-                        content={ input.value || '' }
+                        content={ input.value || value || '' }
                         placeholder={ placeholder }
+                        value={ value || '' }
                         onBlur={ () => input.onBlur } />
 
             {touched &&

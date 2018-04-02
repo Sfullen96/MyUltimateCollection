@@ -159,7 +159,7 @@ export const GET_LAST_FM_INFO_REQUEST = "GET_LAST_FM_INFO_REQUEST";
 export const GET_LAST_FM_INFO = "GET_LAST_FM_INFO";
 export const GET_LAST_FM_INFO_ERROR = "GET_LAST_FM_INFO_ERROR";
 
-export function getLastFmInfo( musicTitle, musicId ) {
+export function getLastFmInfo( musicTitle, artistId, musicId ) {
     return dispatch => {
         return new Promise( ( resolve, reject ) => {
             dispatch( {
@@ -176,6 +176,10 @@ export function getLastFmInfo( musicTitle, musicId ) {
 
             if ( musicId ) {
                 params.album_id = musicId;
+            }
+
+            if ( artistId ) {
+                params.album_artist_id = artistId;
             }
 
             requestHelpers

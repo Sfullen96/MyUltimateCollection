@@ -21,11 +21,13 @@ class AddNewMusicPage extends Component {
     getAlbumInfo = ( title, artist ) => {
         const { getLastFmInfo } = this.props;
 
-        getLastFmInfo( title, artist );
+        console.log( "HERHEHREHRE", title, artist[ 0 ].id );
+        
+        getLastFmInfo( title, artist[ 0 ].id );
     };
 
     render() {
-        const { artists, formats } = this.props;
+        const { artists, formats, lastFmInfo } = this.props;
 
         if ( !artists || !formats ) {
             return <h1>Loading...</h1>
@@ -33,12 +35,14 @@ class AddNewMusicPage extends Component {
 
         return (
             <div className="container">
-                <h1>Add New Music</h1>
+                <h1 className="mt-3 mb-3 h3">Add New Music to Your Library</h1>
+                <hr/>
                 <AddNewMusicForm
                     onSubmit={ this.formSubmit }
                     artists={ artists }
                     formats={ formats }
                     getAlbumInfo={ this.getAlbumInfo }
+                    lastFmInfo={ lastFmInfo && lastFmInfo }
                 />
             </div>
         );
@@ -55,7 +59,7 @@ const mapDispatchToProps = ( dispatch ) => ( {
     getAllArtists: ( paginate = false ) => dispatch( artistActions.getAllArtists( false ) ),
     addNewMusic: ( music ) => dispatch( musicActions.createNewMusic( music ) ),
     getMusicFormats: () => dispatch( musicActions.getMusicFormats() ),
-    getLastFmInfo: ( title ) => dispatch( musicActions.getLastFmInfo( title ) )
+    getLastFmInfo: ( title, artistId ) => dispatch( musicActions.getLastFmInfo( title, artistId ) )
 } );
 
 export default connect( mapStateToProps, mapDispatchToProps )( AddNewMusicPage );
