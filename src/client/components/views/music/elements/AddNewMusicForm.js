@@ -43,7 +43,9 @@ class AddNewMusicForm extends Component {
 
     componentWillReceiveProps( nextProps ) {
         const { lastFmInfo } = nextProps;
-        
+
+        this.props.change( "image", lastFmInfo && lastFmInfo.data.album.image && lastFmInfo.data.album.image[ 4 ][ '#text' ] && lastFmInfo.data.album.image[ 4 ][ '#text' ] );
+
         if ( lastFmInfo && this.state.showLastFmInfo ) {
             if ( lastFmInfo.data.album.wiki ) {
                 this.setState( { description: lastFmInfo.data.album.wiki.content && lastFmInfo.data.album.wiki.content } );
@@ -110,20 +112,14 @@ class AddNewMusicForm extends Component {
                         </div>
                 }
                 <fieldset disabled={ formDisabled } >
-
-                    {
-                        lastFmInfo && lastFmInfo.data.album.image && lastFmInfo.data.album.image[ 4 ][ '#text' ] && showLastFmInfo &&
-                            <div className="d-none">
-                                <Field
-                                    name="image"
-                                    component={ _Form.textField }
-                                    style={ { 'display': "none" } }
-                                    // type="hidden"
-                                    content={ lastFmInfo.data.album.image[ 4 ][ '#text' ] }
-                                    disabled={ formDisabled }
-                                />
-                            </div>
-                    }
+                    <div className="">
+                        <Field
+                            name="image"
+                            type="hidden"
+                            component={ _Form.textField }
+                            disabled={ formDisabled }
+                        />
+                    </div>
                     <div className="row">
                         <div className="col-12 col-sm-12 col-md-6">
                             <div className="form-group">
@@ -136,6 +132,8 @@ class AddNewMusicForm extends Component {
                                     disabled={ formDisabled }
                                 />
                             </div>
+
+
                         </div>
                         <div className="col-12 col-sm-12 col-md-6">
                             <div className="form-group">
@@ -245,7 +243,12 @@ class AddNewMusicForm extends Component {
         )
     }
 }
-AddNewMusicForm = reduxForm( { form: "new-music-form" } )( AddNewMusicForm );
+AddNewMusicForm = reduxForm( {
+    form: "new-music-form",
+    initialValues: {
+        image: '',
+    }
+} )( AddNewMusicForm );
 
 const mapStateToProps = ( state ) => {
     return {

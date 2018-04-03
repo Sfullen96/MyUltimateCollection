@@ -10,7 +10,7 @@ export function textField( { input, content, label = null, placeholder, initialV
 
             <div>
                 <input { ...input } className={ `form-control ${ className } ${ touched ? (!error ? "" : " error-field") : "" }` } type={ type } placeholder={ placeholder || null }
-                       value={ initialValue ? initialValue : content } disabled={!!disabled}
+                       value={ initialValue ? initialValue : content } disabled={ !!disabled }
                 />
 
                 { touched &&
