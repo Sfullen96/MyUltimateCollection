@@ -84,3 +84,14 @@ body {
 .pagination {
   margin-top: 15px;
 }
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.badge-default {
+  border-radius: 100px !important;
+  background-color: transparent !important;
+  color: #333 !important;
+  border: 1px solid #333 !important;
+}

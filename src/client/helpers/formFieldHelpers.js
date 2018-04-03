@@ -3,14 +3,14 @@ import { Multiselect, DropdownList } from 'react-widgets';
 import ReactQuill from 'react-quill';
 import 'react-widgets/dist/css/react-widgets.css'
 
-export function textField( { input, label = null, placeholder, initialValue, disabled, type = "text", className, meta: { touched, error, warning } } ) {
+export function textField( { input, content, label = null, placeholder, initialValue, disabled, type = "text", className, meta: { touched, error, warning } } ) {
     return (
         <div>
             { !!label && <label>{ label }</label> }
 
             <div>
                 <input { ...input } className={ `form-control ${ className } ${ touched ? (!error ? "" : " error-field") : "" }` } type={ type } placeholder={ placeholder || null }
-                       value={ initialValue ? initialValue : input.value } disabled={!!disabled}
+                       value={ initialValue ? initialValue : content } disabled={!!disabled}
                 />
 
                 { touched &&
@@ -91,17 +91,15 @@ export const renderField = ( { input, label, type, placeholder, className, meta:
     );
 }
 
-export function textEditor( { input, value, label, placeholder = null, meta: { touched, error, warning } } ) {
+export function textEditor( { input, value, label, content, placeholder = null, meta: { touched, error, warning } } ) {
     return (
         <div>
             { label && <label>{ label }</label> }
 
-            { console.log( "INPUT", input, value ) }
-
             <ReactQuill { ...input }
                         content={ input.value || value || '' }
                         placeholder={ placeholder }
-                        value={ value || '' }
+                        value={ content }
                         onBlur={ () => input.onBlur } />
 
             {touched &&

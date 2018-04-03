@@ -11,6 +11,7 @@ class AddNewMusicPage extends Component {
     }
 
     formSubmit = ( music ) => {
+        console.log( "MOOOOOSIC", music ); 
         const { addNewMusic } = this.props;
         addNewMusic( music )
             .then( ( response ) => {
@@ -21,8 +22,6 @@ class AddNewMusicPage extends Component {
     getAlbumInfo = ( title, artist ) => {
         const { getLastFmInfo } = this.props;
 
-        console.log( "HERHEHREHRE", title, artist[ 0 ].id );
-        
         getLastFmInfo( title, artist[ 0 ].id );
     };
 

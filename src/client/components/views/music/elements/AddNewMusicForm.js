@@ -10,62 +10,120 @@ class AddNewMusicForm extends Component {
 
         this.state = {
             formDisabled: false,
+            description: "",
+            title: "",
+            artist: "",
+            showLastFmInfo: false,
         };
     }
 
-    changeArtist = () => {
+    gotoLastFmSearch = () => {
         const { getAlbumInfo, formValues } = this.props;
-        if ( formValues && formValues.title && formValues.artist ) {
-            this.setState( { formDisabled: true } );
+        
+        if (
+            formValues
+            && formValues.title
+            && ( formValues.artist && formValues.artist.length )
+            && ( formValues.artist[ 0 ].id !== this.state.artist || formValues.title !== this.state.title ) ) {
+            this.setState( {
+                formDisabled: true,
+                artist: formValues.artist[ 0 ].id,
+                title: formValues.title,
+                showLastFmInfo: true,
+            } );
             setTimeout( () => {
                 getAlbumInfo( formValues.title, formValues.artist );
-            }, 1000 );
+            }, 300 );
+        } else if ( !formValues || !formValues.title || !formValues.artist || !formValues.artist.length ) {
+            this.setState( {
+                showLastFmInfo: false,
+            } )
         }
-    };
-
-    toggleFormDisable = () => {
-        this.setState( { formDisabled: false } );
     };
 
     componentWillReceiveProps( nextProps ) {
         const { lastFmInfo } = nextProps;
-
-        console.log( "EHHERHEHR" );
-        if ( lastFmInfo ) {
-            this.toggleFormDisable();
+        
+        if ( lastFmInfo && this.state.showLastFmInfo ) {
+            if ( lastFmInfo.data.album.wiki ) {
+                this.setState( { description: lastFmInfo.data.album.wiki.content && lastFmInfo.data.album.wiki.content } );
+            } else {
+                this.setState( { description: "" } );
+            }
+            this.setState( { formDisabled: false } );
         }
     }
 
     render() {
         const { handleSubmit, submitting, artists, formats, lastFmInfo } = this.props;
-        const { formDisabled } = this.state;
+        const { formDisabled, showLastFmInfo } = this.state;
 
         return (
             <Form onSubmit={ handleSubmit }>
                 {
                     formDisabled &&
-                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <div className="alert alert-info alert-dismissible fade show" role="alert">
                             Searching Last.fm for the album you entered...
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                 }
                 {
-                    lastFmInfo && lastFmInfo.data.error &&
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    lastFmInfo && lastFmInfo.data.error && showLastFmInfo &&
+                    <div className="alert alert-danger alert-dismissible fade show" role="alert">
                         We were unable to find the album or artist you entered on last.fm<br />
-                        Please continue to fill the form in as normal
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        Please continue to fill the form in as normal, or try another album
+                        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 }
                 {
-                    lastFmInfo && !lastFmInfo.data.error && lastFmInfo.data.album.image &&
-                    <img src={ lastFmInfo.data.album.image[ 2 ][ '#text' ] } alt=""/>
+                    lastFmInfo && !lastFmInfo.data.error && lastFmInfo.data.album.image && showLastFmInfo && !formDisabled &&
+                        <div className="last-fm-info mb-3">
+                            <h6>Data Retrieved from Last.fm:</h6>
+                            <div className="row">
+                                {
+                                    lastFmInfo.data.album.image[ 4 ][ '#text' ] !== '' &&
+                                    <div className="col-12 col-sm-2">
+                                        <img width="100%" src={ lastFmInfo.data.album.image[2]['#text'] } alt=""/>
+                                    </div>
+                                }
+                                <div className={ `col-12 col-sm-${ lastFmInfo.data.album.image[ 4 ][ '#text' ] !== '' ? "10" : "12" } `}>
+                                    <h4 className="mb-2 capitalize">{ lastFmInfo.data.album.name }</h4>
+                                    <p className="mb-0"><strong>Listeners</strong>: { parseInt( lastFmInfo.data.album.listeners, 10 ).toLocaleString() }</p>
+                                    <p><strong>Plays</strong>: { parseInt( lastFmInfo.data.album.playcount, 10 ).toLocaleString() }</p>
+                                    <h5>
+                                        {
+                                            lastFmInfo.data.album.tags &&
+                                                lastFmInfo.data.album.tags.tag.map( ( tag ) => {
+                                                    if ( tag.name !== "albums i own" ) {
+                                                        return <span
+                                                            className="badge badge-default mr-2 capitalize">{ tag.name }</span>;
+                                                    }
+                                                } )
+                                        }
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
                 }
                 <fieldset disabled={ formDisabled } >
+
+                    {
+                        lastFmInfo && lastFmInfo.data.album.image && lastFmInfo.data.album.image[ 4 ][ '#text' ] && showLastFmInfo &&
+                            <div className="d-none">
+                                <Field
+                                    name="image"
+                                    component={ _Form.textField }
+                                    style={ { 'display': "none" } }
+                                    // type="hidden"
+                                    content={ lastFmInfo.data.album.image[ 4 ][ '#text' ] }
+                                    disabled={ formDisabled }
+                                />
+                            </div>
+                    }
                     <div className="row">
                         <div className="col-12 col-sm-12 col-md-6">
                             <div className="form-group">
@@ -74,11 +132,9 @@ class AddNewMusicForm extends Component {
                                     label="Album Title"
                                     placeholder="Title"
                                     component={ _Form.textField }
-                                    onBlur={ this.changeArtist }
+                                    onBlur={ this.gotoLastFmSearch }
                                     disabled={ formDisabled }
                                 />
-
-
                             </div>
                         </div>
                         <div className="col-12 col-sm-12 col-md-6">
@@ -96,7 +152,7 @@ class AddNewMusicForm extends Component {
                                                 }
                                             } )
                                     }
-                                    onBlur={ this.changeArtist }
+                                    onBlur={ this.gotoLastFmSearch }
                                     component={ _Form.multiSelectField }
                                 />
                             </div>
@@ -108,8 +164,7 @@ class AddNewMusicForm extends Component {
                             label="Album Description"
                             placeholder="Description..."
                             component={ _Form.textEditor }
-                            value={ "LAST FM!" }
-                            content={ lastFmInfo && "LAST FM!" }
+                            content={ this.state.description && showLastFmInfo && this.state.description }
                         />
                     </div>
                     <div className="form-group">
