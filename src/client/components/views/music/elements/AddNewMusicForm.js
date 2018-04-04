@@ -14,6 +14,7 @@ class AddNewMusicForm extends Component {
             title: "",
             artist: "",
             showLastFmInfo: false,
+            didError: false,
         };
     }
 
@@ -44,26 +45,35 @@ class AddNewMusicForm extends Component {
     componentWillReceiveProps( nextProps ) {
         const { lastFmInfo } = nextProps;
 
-        this.props.change( "image", lastFmInfo && lastFmInfo.data.album.image && lastFmInfo.data.album.image[ 4 ][ '#text' ] && lastFmInfo.data.album.image[ 4 ][ '#text' ] );
+        if ( lastFmInfo ) {
+            const data = lastFmInfo && !lastFmInfo.data.error ? lastFmInfo.data : null;
+            const didError = !data;
+            const images = !didError && data.album.images;
+            const image = !didError && images ? images[4]['#text'] : null;
+            const description = !didError && data.album.wiki ? data.album.wiki.content : null;
 
-        if ( lastFmInfo && this.state.showLastFmInfo ) {
-            if ( lastFmInfo.data.album.wiki ) {
-                this.setState( { description: lastFmInfo.data.album.wiki.content && lastFmInfo.data.album.wiki.content } );
-            } else {
-                this.setState( { description: "" } );
+            this.props.change( "image", image );
+            this.props.change( "description", description );
+
+            console.log( "this.state.showLastFmInfo", this.state.showLastFmInfo, didError );
+            if ( !didError && this.state.showLastFmInfo ) {
+                this.setState( { formDisabled: false } );
             }
-            this.setState( { formDisabled: false } );
+
+            if ( didError ) {
+                this.setState( { didError: true, formDisabled: false } );
+            }
         }
     }
 
     render() {
         const { handleSubmit, submitting, artists, formats, lastFmInfo } = this.props;
-        const { formDisabled, showLastFmInfo } = this.state;
+        const { formDisabled, showLastFmInfo, didError } = this.state;
 
         return (
             <Form onSubmit={ handleSubmit }>
                 {
-                    formDisabled &&
+                    formDisabled && !didError &&
                         <div className="alert alert-info alert-dismissible fade show" role="alert">
                             Searching Last.fm for the album you entered...
                             <button type="button" className="close" data-dismiss="alert" aria-label="Close">
@@ -72,7 +82,7 @@ class AddNewMusicForm extends Component {
                         </div>
                 }
                 {
-                    lastFmInfo && lastFmInfo.data.error && showLastFmInfo &&
+                    didError && showLastFmInfo &&
                     <div className="alert alert-danger alert-dismissible fade show" role="alert">
                         We were unable to find the album or artist you entered on last.fm<br />
                         Please continue to fill the form in as normal, or try another album
@@ -82,7 +92,7 @@ class AddNewMusicForm extends Component {
                     </div>
                 }
                 {
-                    lastFmInfo && !lastFmInfo.data.error && lastFmInfo.data.album.image && showLastFmInfo && !formDisabled &&
+                    !didError && showLastFmInfo && !formDisabled &&
                         <div className="last-fm-info mb-3">
                             <h6>Data Retrieved from Last.fm:</h6>
                             <div className="row">
@@ -161,8 +171,9 @@ class AddNewMusicForm extends Component {
                             name="description"
                             label="Album Description"
                             placeholder="Description..."
+                            defaultValue=""
                             component={ _Form.textEditor }
-                            content={ this.state.description && showLastFmInfo && this.state.description }
+                            // content={ this.state.description && showLastFmInfo && this.state.description }
                         />
                     </div>
                     <div className="form-group">

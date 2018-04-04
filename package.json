@@ -24,6 +24,7 @@
     "cookie-parser": "^1.4.3",
     "css-loader": "0.28.4",
     "dotenv": "4.0.0",
+    "draft-js": "^0.10.5",
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-15": "latest",
     "express": "^4.16.2",

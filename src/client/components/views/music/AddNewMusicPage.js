@@ -11,7 +11,7 @@ class AddNewMusicPage extends Component {
     }
 
     formSubmit = ( music ) => {
-        console.log( "MOOOOOSIC", music ); 
+        console.log( "MOOOOOSIC", music );
         const { addNewMusic } = this.props;
         addNewMusic( music )
             .then( ( response ) => {

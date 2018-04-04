@@ -92,21 +92,68 @@ export const renderField = ( { input, label, type, placeholder, className, meta:
 }
 
 export function textEditor( { input, value, label, content, placeholder = null, meta: { touched, error, warning } } ) {
-    return (
-        <div>
-            { label && <label>{ label }</label> }
+    console.log( "fsdfsdfsdfsd", input );
+    const quill = <ReactQuill theme='snow'
+                              { ...input }
+        // modules={this._quillModules}
+                              toolbar={ false } // Let Quill manage toolbar
+                              bounds={ '._quill' }
+                              onBlur={ () => input.onBlur }
+                              onChange={ () => input.onChange }
+                              placeholder={ placeholder }>
+        <div key="editor"
+             ref="editor"
+             className="quill-contents border_solid_top"
+             dangerouslySetInnerHTML={ { __html: input.value } } />
+    </ReactQuill>;
 
-            <ReactQuill { ...input }
-                        content={ input.value || value || '' }
-                        placeholder={ placeholder }
-                        value={ content }
-                        onBlur={ () => input.onBlur } />
+     return quill;
 
-            {touched &&
-            ((error && <span>{error}</span>) ||
-            (warning && <span>{warning}</span>))}
-        </div>
-    );
+    // return (
+    //     <div>
+    //         { label && <label>{ label }</label> }
+    //
+    //         {/*<ReactQuill { ...input }*/}
+    //                     {/*content={ input.value || value || '' }*/}
+    //                     {/*placeholder={ placeholder }*/}
+    //                     {/*// value={ content }*/}
+    //                     {/*// onBlur={ () => input.onBlur }*/}
+    //                     {/*onChange={(newValue, delta, source) => {*/}
+    //                         {/*if (source === 'user') {*/}
+    //                             {/*input.onChange(newValue);*/}
+    //                         {/*}*/}
+    //                     {/*}}*/}
+    //                     {/*onBlur={(range, source, quill) => {*/}
+    //                         {/*input.onBlur(quill.getHTML());*/}
+    //                     {/*}}/>*/}
+    //         <div className='_quill'>
+    //
+    //         <ReactQuill theme='snow'
+    //                     { ...input }
+    //                     // modules={this._quillModules}
+    //                     toolbar={ false } // Let Quill manage toolbar
+    //                     bounds={ '._quill' }
+    //                     onBlur={ () => input.onBlur }
+    //                     onChange={ () => input.onChange }
+    //                     placeholder={ placeholder } >
+    //             <div key="editor"
+    //                  ref="editor"
+    //                  className="quill-contents border_solid_top"
+    //                  dangerouslySetInnerHTML={ { __html: input.value } } />
+    //         </ReactQuill>
+    //         </div>
+    //
+    //         {touched &&
+    //         ((error && <span>{error}</span>) ||
+    //         (warning && <span>{warning}</span>))}
+    //     </div>
+    // );
+}
+
+export function changeTextEditor() {
+    const quill = textEditor();
+
+    quill.setContents = "HELLLLOOO";
 }
 
 export function datePicker( { input, inputId, label, min, max, defaultValue, selectedValue, meta: { touched, error, warning } } ) {
