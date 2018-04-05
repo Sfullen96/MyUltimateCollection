@@ -57,7 +57,7 @@ class AddNewMusicForm extends Component {
 
             console.log( "this.state.showLastFmInfo", this.state.showLastFmInfo, didError );
             if ( !didError && this.state.showLastFmInfo ) {
-                this.setState( { formDisabled: false } );
+                this.setState( { formDisabled: false, didError: false } );
             }
 
             if ( didError ) {
