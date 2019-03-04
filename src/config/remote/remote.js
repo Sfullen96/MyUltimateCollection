@@ -1,5 +1,5 @@
 module.exports = {
     urls: {
-        api: "http://dev-api.myultimatecollection.com",
+        api: "http://api.myultimatecollection.com",
     },
 };
