@@ -48,7 +48,7 @@
     "react-animations": "^1.0.0",
     "react-bs-datatable": "^1.2.1",
     "react-data-components": "^1.2.0",
-    "react-dev-utils": "^4.1.0",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.0.0",
     "react-lazy": "^0.5.1",
     "react-quill": "^1.1.0",
